@@ -11,6 +11,9 @@ class Discussion < ApplicationRecord
   scope :search, lambda { |term|
     where('match(Name, Body) against(?)', term)
   }
+  scope :tagged, lambda { |tag|
+    where('UPPER(Tags) like ?', "%#{tag.upcase}%")
+  }
 
   alias_attribute :name,          :Name
   alias_attribute :body,          :Body

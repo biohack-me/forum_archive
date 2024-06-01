@@ -29,8 +29,6 @@ TODO
 ## To-do
 
 - Archive
-  - Search
-    - Tag search (add link from tags in discussions)
   - Caching
     - cache all non-search controller actions for 12 hours, as the only things that should change are user deletions and patreon posts
 - Documentation
