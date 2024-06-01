@@ -8,6 +8,9 @@ class Discussion < ApplicationRecord
   has_one    :last_user,  class_name: 'User', primary_key: :LastCommentUserID, foreign_key: :UserID
 
   scope :sorted, -> { order(Arel.sql("FIELD(Announce, 1, 2, 0), DateLastComment desc, DateInserted desc")) }
+  scope :search, lambda { |term|
+    where('match(Name, Body) against(?)', term)
+  }
 
   alias_attribute :name,          :Name
   alias_attribute :body,          :Body

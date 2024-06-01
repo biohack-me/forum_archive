@@ -1,0 +1,18 @@
+.clear.vertical_spacer
+.discussion_details
+  .name
+    = link_to discussion.name, discussion_path(discussion.id)
+  .avatar{title: discussion.creator.name}
+    = user_avatar_link_unless_private(discussion.creator)
+  .discussion_preview
+    .author
+      by
+      = user_link_unless_private(discussion.creator)
+    .category
+      in
+      = link_to discussion.category.name, category_path(discussion.category.id)
+    .date
+      = date_disp(discussion.created)
+    .discussion_snippit
+      = format_post(discussion.format, discussion.body, 350)
+.clear.vertical_spacer

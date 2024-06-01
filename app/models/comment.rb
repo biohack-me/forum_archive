@@ -6,6 +6,9 @@ class Comment < ApplicationRecord
   has_one    :creator,    class_name: 'User', primary_key: :InsertUserID, foreign_key: :UserID
 
   scope :sorted, -> { order('DateInserted desc') }
+  scope :search, lambda { |term|
+    where('match(Body) against(?)', term)
+  }
 
   alias_attribute :body,    :Body
   alias_attribute :created, :DateInserted

@@ -1,0 +1,19 @@
+.search_form
+  = form_tag search_index_path, method: 'get', role: 'search' do
+    = text_field_tag :s, params[:s], autocomplete: 'off', placeholder: 'Search archive'
+
+- unless params[:s].blank?
+  - if @results.empty?
+    %p
+      No results for <strong>#{params[:s]}</strong>.
+  - else
+    %h2
+      #{pluralize @results.size, 'result'} for '#{params[:s]}'
+    %ul.search_results
+      - @results.each do |result|
+        %li
+          - if result.is_a?(Discussion)
+            = render partial: 'discussion', locals: { discussion: result }
+          - elsif result.is_a?(Comment)
+            - result.discussion or next
+            = render partial: 'comment', locals: { comment: result }
