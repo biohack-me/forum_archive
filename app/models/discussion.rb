@@ -34,7 +34,15 @@ class Discussion < ApplicationRecord
 
   def tag_list
     tags.blank? and return []
-    tags.split(',')
+    # sometimes tags are separated by commas, sometimes by spaces, sometimes
+    # comma separated tags HAVE spaces. fun for the whole family.
+    tag_list = []
+    if tags =~ /,/
+      tag_list = tags.split(',')
+    else
+      tag_list = tags.split(/\s/)
+    end
+    tag_list.collect{|t| t.squish}
   end
 
 end

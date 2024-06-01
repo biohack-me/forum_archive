@@ -13,7 +13,7 @@ one:
   DateInserted: <%= 1.week.ago.to_fs(:db) %>
   Announce: 0
   Closed: 0
-  Tags: thing1,thing2
+  Tags: thing1 ,thing2 with a space
 two:
   DiscussionID: 2
   CategoryID: 2
@@ -23,7 +23,7 @@ two:
   DateInserted: <%= 1.week.ago.to_fs(:db) %>
   Announce: 1
   Closed: 0
-  Tags: thing2,thing3
+  Tags: thing3 thing4
 three:
   DiscussionID: 3
   CategoryID: 2
