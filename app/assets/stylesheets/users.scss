@@ -1,0 +1,112 @@
+.user_header {
+  margin: 2em 0 2em 0;
+  .avatar {
+    display: block;
+    float: left;
+    padding: 0;
+    margin: 0 2em 1em 0;
+    vertical-align: top;
+    max-width: 200px;
+    overflow: hidden;
+  }
+  .user_details {
+    display: inline;
+    margin: 0 .5em .5em 0;
+    vertical-align: top;
+    h1.name {
+      text-align: left;
+    }
+    dl.about {
+      font-size: 11px;
+      line-height: 14px;
+      dt {
+        display: inline;
+        margin: 0 .1em 0 0;
+        padding: 0 0 0 14px;
+        vertical-align: baseline;
+        color: rgb(102, 102, 102);
+        background: url("profile-sprites.png") 2px -139px no-repeat transparent;
+      }
+      dd {
+        display: inline;
+        margin: 0 1em 0 0 ;
+        padding: 0 0 0 0;
+        vertical-align: baseline;
+        color: rgb(0, 0, 0);
+      }
+      dt.name {
+        background-position: 0 -26px;
+      }
+      dt.email {
+        background-position: 0 -53px;
+      }
+      dt.joined {
+        background-position: 0 3px;
+      }
+      dt.visits { }
+      dt.last_active {
+        background-position: 0 3px;
+      }
+      dt.roles {
+        background-position: 1px -81px;
+      }
+      dt.joined {
+        background-position: 0 3px;
+      }
+      dt.points { }
+      dt.pronouns { }
+      dt.skills { }
+      dt.badges { }
+    }
+  }
+}
+.user_activity {  
+
+  .content_heading {
+    h2 {
+      margin-right: .5em;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .toggle_link {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  ol.discussions {
+    padding:  1em .75em 1em .75em;
+    background-color: transparent;
+  }
+  ol.comments {
+    list-style-type: none;
+    margin: 0;
+    padding:  1em .75em 1em .75em;
+    li {
+      margin: 0 !important;
+      padding: .5em 0 .5em 0;
+      border-bottom-color: rgba(0, 0, 0, 0.1);
+      border-bottom-style: dotted;
+      border-bottom-width: 1px;
+    }
+    li:last-child {
+      border-bottom: none;
+    }
+  }
+  .comment_preview {
+    a:link, a:active, a:visited {
+      color: rgb(0, 0, 0);
+    }
+  }
+  .comment_details {
+    .category, .author, .date {
+      display: inline;
+      font-size: 75%;
+      color: rgb(204, 204, 204);
+      padding: 0 1.5em 0 0;
+      a:link, a:active, a:visited {
+        color: rgb(204, 204, 204);
+      }
+    }
+  }
+}

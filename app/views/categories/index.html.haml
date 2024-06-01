@@ -1,0 +1,21 @@
+- if @categories.empty?
+  %p
+    No categories found!
+- else
+  %h1
+    Discussion categories
+  %ol#category_list
+    - @categories.each do |category|
+      %li
+        .category_name
+          = link_to category.name, category_path(category.id)
+        .category_description
+          = category.description
+        .category_counts
+          #{pluralize category.discussion_count, 'discussion'}, #{pluralize category.comment_count, 'comment'}
+        %ol.discussions
+          - category.discussions.sorted.first(5).each do |discussion|
+            %li
+              = render partial: 'discussions/preview', locals: { discussion: discussion, show_author: true, show_cat: false }
+        .more
+          = link_to "view all discussions in #{category.name}...", category_path(category.id)

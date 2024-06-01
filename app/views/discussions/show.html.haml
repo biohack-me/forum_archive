@@ -1,0 +1,40 @@
+%h1
+  = @page_title
+.discussion_post
+  = render partial: 'users/author', locals: { user: @discussion.creator }
+  .post_metadata
+    .date_posted
+      = date_disp(@discussion.created)
+    - if @discussion.updated
+      .date_edited
+        edited #{date_disp(@discussion.updated)}
+    .category
+      in #{link_to @discussion.category.name, category_path(@discussion.category.id)}
+  .post_body
+    = format_post @discussion.format, @discussion.body
+  - unless @discussion.tag_list.empty?
+    .post_tags
+      Taggged:
+      - tag_links = []
+      -  @discussion.tag_list.each do |tag|
+        - tag_links << tag
+      = tag_links.join(', ')
+
+- unless @discussion.comments.blank?
+  .clear.vertical_spacer
+  %h2 Comments
+  %ul.discussion_comments
+    - @discussion.comments.each do |comment|
+      %li.discussion_comment
+        %a{name: comment.id}
+        = render partial: 'users/author', locals: { user: comment.creator }
+        .post_metadata
+          .date_posted
+            = date_disp(comment.created)
+          - if comment.updated
+            .date_edited
+              edited #{date_disp(comment.updated)}
+        .post_body
+          = format_post comment.format, comment.body
+
+  .clear.vertical_spacer

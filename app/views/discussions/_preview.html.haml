@@ -1,0 +1,29 @@
+.clear.vertical_spacer
+- if show_author
+  .avatar{title: discussion.creator.name}
+    = user_avatar_link_unless_private(discussion.creator)
+.discussion_preview  
+  .name
+    = link_to discussion.name, discussion_path(discussion.id)
+  .flags
+    %ul
+      - if discussion.announcement?
+        %li Announcement
+      - if discussion.closed?
+        %li Closed
+  - if show_author
+    .author
+      = user_link_unless_private(discussion.creator)
+  .views
+    #{view_count(discussion.view_count)} views
+  .comments
+    = pluralize(discussion.comment_count, 'comment')
+  - if discussion.last_user
+    .last_comment
+      Most recent by #{user_link_unless_private(discussion.last_user)}
+  .date
+    = date_disp(discussion.created)
+  - if show_cat
+    .category
+      = link_to discussion.category.name, category_path(discussion.category.id)
+.clear.vertical_spacer

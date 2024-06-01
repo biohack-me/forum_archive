@@ -1,0 +1,125 @@
+- if @user.private?
+  %p
+    #{@user.name}'s profile is private
+- else
+  = javascript_include_tag :users
+  .user_header
+    .avatar{title: @user.name}
+      = image_tag(@user.photo_url('big'), alt: @user.name, width: 200, loading: 'lazy')
+    .user_details
+
+      %h1.name
+        = @user.name
+
+      - if !@user.about.blank?
+        .user_bio
+          = simple_format @user.about
+
+      %dl.about
+
+        %dt.name
+          Username
+        %dd.name
+          = @user.name
+
+        - if @user.show_email?
+          %dt.email
+            Email
+          %dd.email
+            = mail_to @user.email
+
+        %dt.joined
+          Joined
+        %dd.joined
+          = date_disp(@user.created)
+
+        %dt.visits
+          Visits
+        %dd.visits
+          = @user.visit_count
+
+        - if @user.last_active
+          %dt.last_active
+            Last active
+          %dd.last_active
+            = date_disp(@user.last_active)
+
+        %dt.roles
+          Roles
+        %dd.roles
+          = @user.roles.collect(&:name).join(', ')
+
+        - if @user.points > 0
+          %dt.points
+            Points
+          %dd.points
+            = @user.points
+
+        - if !@user.pronouns.blank?
+          %dt.pronouns
+            Pronouns
+          %dd.pronouns
+            = @user.pronouns
+
+        - if !@user.skills.blank?
+          %dt.skills
+            Skills
+          %dd.skills
+            = @user.skills
+
+        %dt.badges
+          Badges
+        %dd.badges
+          = @user.user_badges.size
+
+      .badges
+        - @user.user_badges.sorted.each do |userbadge|
+          - badge = userbadge.badge
+          = link_to image_tag(badge.image_path, alt: badge.name, title: badge.name, width: 32, height: 32, loading: 'lazy'), badge_path(badge.id)
+
+  .clear.vertical_spacer
+
+  .user_activity
+
+    - if @user.discussions.size > 0
+      .content_heading
+        %h2
+          Discussions (#{@user.discussions.size})
+        .toggle_link
+          = link_to "show discussions", '#', id: "toggle_discussions"
+        = javascript_tag nonce: true do
+          :plain
+            $(document).ready(function(){
+              $("#toggle_discussions").click(function() {
+                toggle_discussions();
+                return false;
+              });
+            });
+      %ol#user_discussions.discussions{class: 'hidden'}
+        - @user.discussions.sorted.each do |discussion|
+          %li
+            = render partial: 'discussions/preview', locals: { discussion: discussion, show_author: false, show_cat: true }
+
+    .clear.vertical_spacer
+
+    - if @user.comments.size > 0
+      .content_heading
+        %h2
+          Comments (#{@user.comments.size})
+        .toggle_link
+          = link_to "show comments", '#', id: "toggle_comments"
+        = javascript_tag nonce: true do
+          :plain
+            $(document).ready(function(){
+              $("#toggle_comments").click(function() {
+                toggle_comments();
+                return false;
+              });
+            });
+      %ol#user_comments.comments{class: 'hidden'}
+        - @user.comments.sorted.each do |comment|
+          - comment.discussion or next
+          %li
+            = render partial: 'comments/preview', locals: { comment: comment }
+
+  .clear.vertical_spacer

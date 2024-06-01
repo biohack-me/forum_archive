@@ -1,0 +1,125 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#container {
+  /* Prevent iOS and IE text size adjust after device orientation change,
+   * without disabling user zoom. (from HTML boilerplate) */
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  /* default font size, text color, etc */
+  margin: 0;
+  padding: 0;
+  color: #000000;
+  font-size: 14px;
+  font-family: Bitter, "lucida grande", "Lucida Sans Unicode", tahoma, sans-serif;
+  line-height: 125%;
+  background-color: #ffffff;
+}
+
+header, #main, footer p, nav ul {
+  max-width: 60em;
+  margin: auto;
+}
+
+nav {
+  max-width: 100%;
+  color: #000000;
+  background-color: rgb(247, 247, 247);
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  margin: 0;
+  padding: 1em 0 1em 0;
+  overflow: hidden;
+  ul {
+    display: block;
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;
+    li {
+      display: inline-block;
+      text-align: center;
+      margin: 0;
+      width: 11.5em;
+      padding: 0;
+    }
+    li:first-child {
+      text-align: left;
+    }
+    li:last-child {
+      text-align: right;
+      width: 12em;
+      input {
+        width: 11em;
+        background-image: image-url("search.png");
+        background-repeat: no-repeat;
+        background-position: center right;
+        padding: .2em 1.5em .2em .2em;
+        margin: 0;
+        font-size: 90%;
+        border: 1px solid #888888;
+      }
+    }
+  }
+  a:link, a:active, a:visited {
+    color: #000000;
+  }
+}
+
+#main {
+  padding: 0 1em 0 1em;
+}
+
+footer {
+  max-width: 100%;
+  margin: 2em auto 1em auto;
+  padding: 1em 1em 0 1em;
+  border-top-color: rgba(0, 0, 0, 0.1);
+  border-top-style: solid;
+  border-top-width: 1px;
+  font-size: 80%;
+}
+
+h1 {
+  text-align: right;
+  font-size: 200%;
+  margin: 1.5em 0 1em 0;
+}
+
+a:link, a:active, a:visited {
+  text-decoration: none;
+  color: rgb(29, 86, 137);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
+.clear {
+  clear: both;
+}
+.vertical_spacer {
+  height: .5em;
+}
+.center {
+  text-align:center;
+}

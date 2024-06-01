@@ -1,0 +1,122 @@
+.discussions .avatar, .discussion_post .avatar, .discussion_comment .avatar {
+  display: block;
+  float: left;
+  padding: 0;
+  margin: 0 .5em .5em 0;
+  vertical-align: top;
+  max-width: 40px;
+  overflow: hidden;
+}
+.discussion_preview, .user_preview {
+  display: inline;
+  margin: 0 .5em .5em 0;
+  vertical-align: top;
+  .name {
+    font-size: 140%;
+    padding: 0 0 .25em 0;
+    a:link, a:active, a:visited {
+      color: #000000;
+    }
+  }
+  .flags {
+    display: inline;
+    ul {
+      display: inline;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      li {
+        display: inline;
+        border: none;
+        font-size: 75%;
+        padding: .25em !important;
+        background-color: rgb(119, 119, 119);
+        color: rgb(255, 255, 255);
+      }
+    }
+  }
+  .author, .views, .comments, .last_comment, .date, .category {
+    display: inline;
+    font-size: 75%;
+    color: rgb(204, 204, 204);
+    padding: 0 1.5em 0 0;
+    a:link, a:active, a:visited {
+      color: rgb(204, 204, 204);
+    }
+  }
+}
+
+.post_author {
+  .user_preview {
+    display: block;
+    margin: 0;
+    padding: 0;
+    .name {
+      display: inline-block;
+      vertical-align: bottom;
+      font-size: 125%;
+      font-weight: 700;
+      a:link, a:active, a:visited {
+        color: rgb(29, 86, 137);
+      }
+    }
+    .badges {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+  }
+}
+.post_metadata {
+  .date_posted, .date_edited, .category {
+    display: inline;
+    font-size: 75%;
+    color: rgb(204, 204, 204);
+    margin: 0;
+    padding: 0 1.5em 0 0em;
+    a:link, a:active, a:visited {
+      color: rgb(204, 204, 204);
+    }
+  }
+}
+.post_body {
+  clear: both;
+  ul {
+    list-style-type: disc;
+  }
+  img {
+    max-width: 100%;
+  }
+}
+.post_tags {
+  clear: both;
+  font-size: 80%;
+  color: rgb(112, 114, 124);
+}
+.discussion_post, .discussion_comment {
+  margin-left: 1em;
+  blockquote {
+    background: rgba(0, 0, 0, 0.05);
+    border-left: 4px solid rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    overflow-y: initial;
+    padding: .25em 1em;
+    margin: 1em 0;
+  }
+}
+ul.discussion_comments {
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  li.discussion_comment {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 1em 0 2em 0;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+}

@@ -1,0 +1,11 @@
+.clear.vertical_spacer
+.comment_preview
+  = link_to format_post(comment.format, comment.body, 250), discussion_path(comment.discussion.id, anchor: comment.id)
+.comment_details
+  .category
+    in #{link_to comment.discussion.category.name, category_path(comment.discussion.category.id)}
+  .author
+    Comment by #{user_link_unless_private(comment.creator)}
+  .date
+    = link_to date_disp(comment.created), discussion_path(comment.discussion.id, anchor: comment.id)
+.clear.vertical_spacer

@@ -1,0 +1,15 @@
+class Comment < ApplicationRecord
+  self.table_name = 'GDN_Comment'
+  self.primary_key = :CommentID
+
+  belongs_to :discussion, foreign_key: :DiscussionID
+  has_one    :creator,    class_name: 'User', primary_key: :InsertUserID, foreign_key: :UserID
+
+  scope :sorted, -> { order('DateInserted desc') }
+
+  alias_attribute :body,    :Body
+  alias_attribute :created, :DateInserted
+  alias_attribute :updated, :DateUpdated
+  alias_attribute :format,  :Format
+
+end

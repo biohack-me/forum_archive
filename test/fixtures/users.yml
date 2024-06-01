@@ -1,0 +1,45 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  UserID: 1
+  Name: tekniklr
+  Password: something mysterious
+  Email: test1@biohack.me
+  DateInserted: <%= 1.month.ago.to_fs(:db) %>
+  Photo: userpics/F2IH2KPW2RWL/GBH6RG50OK5K.png
+  ShowEmail: 1
+  Attributes: "{\"Private\":\"0\"}"
+two:
+  UserID: 2
+  Name: cyberlass
+  Password: something fake
+  Email: test2@biohack.me
+  DateInserted: <%= 1.month.ago.to_fs(:db) %>
+  Photo: userpics/101/X9WCZXGGN4XZ.jpg
+  ShowEmail: 0
+three:
+  UserID: 3
+  Name: shemp
+  Password: something stoogy
+  Email: test3@biohack.me
+  DateInserted: <%= 1.month.ago.to_fs(:db) %>
+  Photo: https://example.com/picture.gif
+  Attributes: "{\"Private\":\"1\"}"
+four:
+  UserID: 4
+  Name: larry
+  Password: something stooged
+  Email: test4@biohack.me
+  DateInserted: <%= 1.month.ago.to_fs(:db) %>
+  Photo: nil
+five:
+  UserID: 5
+  Name: curly
+  Password: something else
+  Email: test5@biohack.me
+  DateInserted: <%= 1.month.ago.to_fs(:db) %>
+  Photo: something not cromulent

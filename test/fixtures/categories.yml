@@ -1,0 +1,18 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  CategoryID: 1
+  Name: Category one
+  InsertUserID: 1
+  DateInserted: <%= 1.week.ago.to_fs(:db) %>
+  DateUpdated: <%= 1.week.ago.to_fs(:db) %>
+two:
+  CategoryID: 2
+  Name: Category two
+  InsertUserID: 2
+  DateInserted: <%= 1.week.ago.to_fs(:db) %>
+  DateUpdated: <%= 1.week.ago.to_fs(:db) %>

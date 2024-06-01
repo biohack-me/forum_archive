@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  BadgeID: 1
+  Name: Badge one
+  RuleClass: ManualAward
+  Photo: "/applications/yaga/design/images/default_badges.svg#anniversary-1"
+two:
+  BadgeID: 2
+  Name: Badge two
+  RuleClass: ManualAward
+  Photo: "/applications/yaga/design/images/default_badges.svg#anniversary-2"

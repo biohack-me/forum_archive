@@ -1,0 +1,59 @@
+ol#category_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  li {
+    margin: 2em 0 2em 0;
+    padding: 0;
+  }
+}
+
+.category_name {
+  display: block;
+  font-weight: bold;
+  font-size: 175%;
+  padding: 1em 0 .5em 0;
+  a:link, a:active, a:visited {
+    color: rgb(153, 153, 153);
+  }
+}
+.category_description {
+  display: inline-block;
+  width: 74%;
+  vertical-align: bottom;
+  text-align: left;
+  color: rgb(136, 136, 136);
+}
+.category_counts {
+  display: inline-block;
+  width: 25%;
+  vertical-align: bottom;
+  text-align: right;
+  font-size: 80%;
+  font-style: italic;
+  color: rgb(136, 136, 136);
+}
+
+ol.discussions {
+  list-style-type: none;
+  margin: 0;
+  padding: .75em;
+  background-color: rgb(243, 243, 243);
+  li {
+    margin: 0 !important;
+    padding: 0;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+}
+
+.more {
+  text-align: right;
+  a:link, a:active, a:visited {
+    color: rgb(153, 153, 153);
+  }
+}
