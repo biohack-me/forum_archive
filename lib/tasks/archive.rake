@@ -8,44 +8,6 @@ namespace :archive do
     seedfile = File.open('db/seeds.rb', 'w')
     require 'faker'
 
-    # Users - only needed fields, anonymized
-    puts "\nUsers..."
-    usercount = 0
-    seedfile.write "\n\n\n###### Users...\n"
-    attributes = ['UserID', 'DateInserted', 'CountBadges', 'CountVisits', 'DateLastActive', 'Points', 'ShowEmail'] # copied verbatum; anonymized data individually set, below
-    users = User.all
-    users.each do |u|
-      usercount += 1
-      print '.'
-      create_attributes = {}
-      attributes.each do |attr|
-        create_attributes[attr] = u[attr].to_s
-      end
-      create_attributes['Name']     = Faker::Name.unique.name
-      create_attributes['About']    = Faker::Lorem.sentence(word_count: 6)
-      create_attributes['Password'] = SecureRandom.hex(8)
-      create_attributes['Email']    = "#{SecureRandom.hex(3)}@biohack.me"
-      seedfile.write "User.create(#{create_attributes})\n"
-    end
-    puts "\n dumped #{usercount} anonymized users"
-
-    # UserMeta
-    puts "\nUserMeta..."
-    metacount = 0
-    seedfile.write "\n\n\n###### UserMeta...\n"
-    attributes = ['UserID']  # copied verbatum; anonymized data individually set, below
-    user_ids = User.all.collect(&:UserID)
-    user_ids.each do |id|
-      metacount += 1
-      print '.'
-      create_attributes = {}
-      create_attributes['UserID'] = id
-      create_attributes['Name'] = 'Profile.Pronouns'
-      create_attributes['Value'] = ['he him his', 'she her hers', 'they them theirs', 'it it its'].sample
-      seedfile.write "UserMeta.create(#{create_attributes})\n"
-    end
-    puts "\n dumped #{metacount} user metadata"
-
     # Roles
     puts "\nRoles..."
     rolecount = 0
@@ -62,23 +24,6 @@ namespace :archive do
       seedfile.write "Role.create(#{create_attributes})\n"
     end
     puts "\n dumped #{rolecount} roles"
-
-    # UserRoles
-    puts "\nUserRoles..."
-    userrolecount = 0
-    seedfile.write "\n\n\n###### UserRoles...\n"
-    attributes = ['UserID', 'RoleID']
-    urs = UserRole.all
-    urs.each do |ur|
-      userrolecount += 1
-      print '.'
-      create_attributes = {}
-      attributes.each do |attr|
-        create_attributes[attr] = ur[attr].to_s
-      end
-      seedfile.write "UserRole.create(#{create_attributes})\n"
-    end
-    puts "\n dumped #{userrolecount} userroles"
 
     # Badges
     puts "\nBadges..."
@@ -97,12 +42,132 @@ namespace :archive do
     end
     puts "\n dumped #{badgecount} badges"
 
-    # UserBadges
+    # Categories
+    puts "\nCategories..."
+    cat_ids = []
+    seedfile.write "\n\n\n###### Categories...\n"
+    attributes = ['CategoryID', 'ParentCategoryID', 'InsertUserID', 'DateInserted', 'DateUpdated', 'CountAllDiscussions', 'CountComments', 'Name', 'Description', 'Depth', 'Sort'] # copied verbatum; anonymized data individualized, below
+    categories = Category.all
+    categories.each do |c|
+      cat_ids << c.id
+      print '.'
+      create_attributes = {}
+      attributes.each do |attr|
+        create_attributes[attr] = c[attr].to_s
+      end
+      seedfile.write "Category.create(#{create_attributes})\n"
+    end
+    puts "\n dumped #{cat_ids.size} categories"
+
+    # start keeping trask of which userdata to dump / anonymize based on what
+    # discussions and comments we are dumping
+    to_dump_user_ids = []
+
+    # Discussions - only dump ten per category
+    puts "\nDiscussions..."
+    discussion_ids = []
+    seedfile.write "\n\n\n###### Discussions...\n"
+    attributes = ['DiscussionID', 'CategoryID', 'InsertUserID', 'DateInserted', 'DateUpdated', 'Announce', 'Closed', 'CountViews', 'CountComments', 'DateLastComment', 'LastCommentUserID', 'Tags'] # copied verbatum; anonymized data individualized, below
+    cat_ids.each do |c_id|
+      discussions = Discussion.where('CategoryID = ?', c_id).sorted.limit(10)
+      discussions.each do |d|
+        discussion_ids << d.id
+        to_dump_user_ids << d.InsertUserID
+        to_dump_user_ids << d.LastCommentUserID
+        print '.'
+        create_attributes = {}
+        attributes.each do |attr|
+          create_attributes[attr] = d[attr].to_s
+        end
+        create_attributes['Name']   = Faker::Lorem.sentence(word_count: 4)
+        create_attributes['Body']   = Faker::Lorem.paragraph(sentence_count: 6)
+        create_attributes['Format'] = 'TextEx'
+        seedfile.write "Discussion.create(#{create_attributes})\n"
+      end
+    end
+    puts "\n dumped #{discussion_ids.size} anonymized discussions"
+
+    # Comments - only dump for discussions we've already dumped
+    puts "\nComments..."
+    comment_ids = []
+    seedfile.write "\n\n\n###### Comments...\n"
+    attributes = ['CommentID', 'DiscussionID', 'InsertUserID', 'DateInserted', 'DateUpdated'] # copied verbatum; anonymized data individualized, below
+    comments = Comment.where('DiscussionID in (?)', discussion_ids)
+    comments.each do |c|
+      comment_ids << c.id
+      to_dump_user_ids << c.InsertUserID
+      print '.'
+      create_attributes = {}
+      attributes.each do |attr|
+        create_attributes[attr] = c[attr].to_s
+      end
+      create_attributes['Body']   = Faker::Lorem.paragraph(sentence_count: 8)
+      create_attributes['Format'] = 'TextEx'
+      seedfile.write "Comment.create(#{create_attributes})\n"
+    end
+    puts "\n dumped #{comment_ids.size} anonymized comments"
+
+    # Users - only users for dumped discussions and comments, only needed
+    # fields, anonymized
+    puts "\nUsers..."
+    user_ids = []
+    seedfile.write "\n\n\n###### Users...\n"
+    attributes = ['UserID', 'DateInserted', 'CountBadges', 'CountVisits', 'DateLastActive', 'Points', 'ShowEmail'] # copied verbatum; anonymized data individually set, below
+    users = User.where('UserID in (?)', to_dump_user_ids)
+    users.each do |u|
+      user_ids << u.id
+      print '.'
+      create_attributes = {}
+      attributes.each do |attr|
+        create_attributes[attr] = u[attr].to_s
+      end
+      create_attributes['Name']     = Faker::Name.unique.name
+      create_attributes['About']    = Faker::Lorem.sentence(word_count: 6)
+      create_attributes['Password'] = SecureRandom.hex(8)
+      create_attributes['Email']    = "#{SecureRandom.hex(3)}@biohack.me"
+      seedfile.write "User.create(#{create_attributes})\n"
+    end
+    puts "\n dumped #{user_ids.size} anonymized users"
+
+    # UserMeta - only for dumped users
+    puts "\nUserMeta..."
+    metacount = 0
+    seedfile.write "\n\n\n###### UserMeta...\n"
+    attributes = ['UserID']  # copied verbatum; anonymized data individually set, below
+    user_ids.each do |id|
+      metacount += 1
+      print '.'
+      create_attributes = {}
+      create_attributes['UserID'] = id
+      create_attributes['Name'] = 'Profile.Pronouns'
+      create_attributes['Value'] = ['he him his', 'she her hers', 'they them theirs', 'it it its'].sample
+      seedfile.write "UserMeta.create(#{create_attributes})\n"
+    end
+    puts "\n dumped #{metacount} spoofed user metadata"
+
+    # UserRoles - only for dumped users
+    puts "\nUserRoles..."
+    userrolecount = 0
+    seedfile.write "\n\n\n###### UserRoles...\n"
+    attributes = ['UserID', 'RoleID']
+    urs = UserRole.where('UserID in (?)', to_dump_user_ids)
+    urs.each do |ur|
+      userrolecount += 1
+      print '.'
+      create_attributes = {}
+      attributes.each do |attr|
+        create_attributes[attr] = ur[attr].to_s
+      end
+      seedfile.write "UserRole.create(#{create_attributes})\n"
+    end
+    puts "\n dumped #{userrolecount} userroles"
+
+    # UserBadges - only for dumped users
     puts "\nUserBadges..."
     userbadgecount = 0
     seedfile.write "\n\n\n###### UserBadges...\n"
     attributes = ['BadgeAwardID', 'BadgeID', 'UserID', 'DateInserted']
-    ubs = UserBadge.all
+    ubs = UserBadge.where('UserID in (?)', to_dump_user_ids)
     ubs.each do |ub|
       userbadgecount += 1
       print '.'
@@ -113,62 +178,6 @@ namespace :archive do
       seedfile.write "UserBadge.create(#{create_attributes})\n"
     end
     puts "\n dumped #{userbadgecount} userbadges"
-
-    # Categories
-    puts "\nCategories..."
-    catcount = 0
-    seedfile.write "\n\n\n###### Categories...\n"
-    attributes = ['CategoryID', 'ParentCategoryID', 'InsertUserID', 'DateInserted', 'DateUpdated', 'CountAllDiscussions', 'CountComments', 'Name', 'Description', 'Depth', 'Sort'] # copied verbatum; anonymized data individualized, below
-    categories = Category.all
-    categories.each do |c|
-      catcount += 1
-      print '.'
-      create_attributes = {}
-      attributes.each do |attr|
-        create_attributes[attr] = c[attr].to_s
-      end
-      seedfile.write "Category.create(#{create_attributes})\n"
-    end
-    puts "\n dumped #{catcount} categories"
-
-    # Discussions
-    puts "\nDiscussions..."
-    disscount = 0
-    seedfile.write "\n\n\n###### Discussions...\n"
-    attributes = ['DiscussionID', 'CategoryID', 'InsertUserID', 'DateInserted', 'DateUpdated', 'Announce', 'Closed', 'CountViews', 'CountComments', 'DateLastComment', 'LastCommentUserID', 'Tags'] # copied verbatum; anonymized data individualized, below
-    discussions = Discussion.all
-    discussions.each do |d|
-      disscount += 1
-      print '.'
-      create_attributes = {}
-      attributes.each do |attr|
-        create_attributes[attr] = d[attr].to_s
-      end
-      create_attributes['Name']   = Faker::Lorem.sentence(word_count: 4)
-      create_attributes['Body']   = Faker::Lorem.paragraph(sentence_count: 6)
-      create_attributes['Format'] = 'TextEx'
-      seedfile.write "Discussion.create(#{create_attributes})\n"
-    end
-    puts "\n dumped #{disscount} anonymized discussions"
-
-    # Comments
-    puts "\nComments..."
-    commcount = 0
-    seedfile.write "\n\n\n###### Comments...\n"
-    attributes = ['CommentID', 'DiscussionID', 'InsertUserID', 'DateInserted', 'DateUpdated'] # copied verbatum; anonymized data individualized, below
-    comments = Comment.all
-    comments.each do |c|
-      commcount += 1
-      print '.'
-      create_attributes = {}
-      attributes.each do |attr|
-        create_attributes[attr] = c[attr].to_s
-      end
-      create_attributes['Body']   = Faker::Lorem.paragraph(sentence_count: 8)
-      create_attributes['Format'] = 'TextEx'
-      seedfile.write "Comment.create(#{create_attributes})\n"
-    end
-    puts "\n dumped #{commcount} anonymized comments"
 
     seedfile.close
     puts "\nFinished writing #{seedfile.path}"
