@@ -42,7 +42,7 @@ class Discussion < ApplicationRecord
     else
       tag_list = tags.split(/\s/)
     end
-    tag_list.collect{|t| t.squish}
+    tag_list.collect{|t| t.squish}.reject{|t| t.blank?}
   end
 
 end
