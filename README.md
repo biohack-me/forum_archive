@@ -73,17 +73,21 @@ create user 'biohackme' identified by '<password>';
 grant all privileges on biohackme_vanilla.* to 'biohackme';
 grant all privileges on biohackme_vanilla_test.* to 'biohackme';
 ```
-(local development will need all database privileges to set up the database from the schema and seed it; in production only `select` is needed)
+(local development will need all database privileges to set up the database; in production only `select` is needed)
 
-Set up your new database with a schema and seed data with:
+If you have access to a `.sql` dump of the production forum database (e.g., you have access to our backups), you can now populate your development database (it will prompt you for the password you set up above):
 ```bash
-rails db:test:prepare
+mysql -u biohackme -p biohackme_vanilla < vanilla.sql
+```
+Otherwise, you can now set it up with the provided schema and seed data:
+```bash
 rails db:schema:load
 rails db:seed
 ```
 
 If all went well, you can run our (minimal) tests with:
 ```bash
+rails db:test:prepare
 rails test
 ```
 And start up a local server with:
