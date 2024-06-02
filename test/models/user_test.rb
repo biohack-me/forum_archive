@@ -50,6 +50,15 @@ class UserTest < ActiveSupport::TestCase
     assert users(:three).private?
   end
 
+  should "know if this is a deleted user" do
+    assert !users(:one).deleted?
+    assert !users(:two).deleted?
+    assert !users(:three).deleted?
+    assert !users(:four).deleted?
+    assert !users(:five).deleted?
+    assert users(:six).deleted?
+  end
+
   should "know user pronouns" do
     assert_equal 'it it its', users(:one).pronouns
     assert_equal 'they them theirs', users(:two).pronouns

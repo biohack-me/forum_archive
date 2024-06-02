@@ -43,3 +43,11 @@ five:
   Email: test5@biohack.me
   DateInserted: <%= 1.month.ago.to_fs(:db) %>
   Photo: something not cromulent
+six:
+  UserID: 6
+  Name: [Deleted User]
+  Password: something?
+  Email: test6@biohack.me
+  DateInserted: <%= 1.month.ago.to_fs(:db) %>
+  Photo: nil
+  Deleted: 1

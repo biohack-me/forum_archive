@@ -54,7 +54,7 @@ module DiscussionsHelper
         username = $1
         disp_username = "@#{username}"
         user = User.where(name: username).first
-        if user && !user.private?
+        if user && !user.deleted? && !user.private?
           link_to disp_username, user_path(user.id)
         else
           disp_username

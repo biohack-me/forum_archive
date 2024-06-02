@@ -12,7 +12,7 @@ module ApplicationHelper
 
   def user_avatar_link_unless_private(user)
     image = image_tag(user.photo_url, alt: user.name, width: 40, height: 40, loading: 'lazy')
-    if user.private?
+    if user.deleted? || user.private?
       image
     else
       link_to image, user_path(user.id)
@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def user_link_unless_private(user)
-    if user.private?
+    if user.deleted? || user.private?
       user.name
     else
       link_to user.name, user_path(user.id)

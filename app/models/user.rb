@@ -21,6 +21,7 @@ class User < ApplicationRecord
   alias_attribute :show_email,      :ShowEmail
   alias_attribute :raw_attributes,  :Attributes
   alias_attribute :raw_preferences, :Preferences
+  alias_attribute :deleted,         :Deleted
 
   def photo_url(size = 'small')
     # avatars uploaded to vanilla will be stored in GDN_User.photo as,
@@ -58,6 +59,10 @@ class User < ApplicationRecord
   def private?
     attributes.is_a?(Hash) or return false
     attributes['Private'] == '1'
+  end
+
+  def deleted?
+    deleted == 1
   end
 
   def pronouns

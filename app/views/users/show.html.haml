@@ -1,4 +1,7 @@
-- if @user.private?
+- if @user.deleted?
+  %p
+    The content you were looking for has been deleted
+- elsif @user.private?
   %p
     #{@user.name}'s profile is private
 - else
