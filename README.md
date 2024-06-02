@@ -11,25 +11,38 @@ So, I (@tekniklr), decided to roll up a quick rails app to connect to the existi
 
 Patreon badges and shoutouts are handled via a [cron task](https://github.com/biohack-me/Patreon-patron-sync) that talks directly to the database - no Vanilla install required. These can continue operating despite the forum being a read-only archive.
 
-If a forum user wants to have their data removed this can be done directly in the database (e.g., with [phpMyAdmin](https://www.phpmyadmin.net/)). There are two ways to do it - delete the user and everything they've posted, or delete the user and anonymize their content (it will show as being authored by `[Deleted User]``).
+If a forum user wants to have their data removed this can be done directly in the database (e.g., with [phpMyAdmin](https://www.phpmyadmin.net/)). There are three ways Vanilla does it:
+1. Keep user content - Delete the user but keep the user's content (it will show as being authored by `[Deleted User]`).
+```mysql
+delete from GDN_UserAuthentication where UserID=<id>;
+delete from GDN_Role where UserID=<id>;
+delete from GDN_Invitation where InsertUserID=<id> or AcceptedUserID=<id>;
+delete from GDN_Activity where InsertUserID=<id>;
+delete from GDN_Log where RecordUserID=<id> and Operation='Pending';
+delete from GDN_UserCategory where UserID=<id>;
+update GDN_User set Name='[Deleted User]', Photo='', About='', Title='', Location='', Password='<random string>', HashMethod='Random', About='', Email='user_<id>@deleted.invalid', ShowEmail='0', Gender='u', CountVisits=0, CountInvitations=0, CountNotifications=0, InviteUserID=null, DiscoveryText='', Preferences=null, Permissions=null, Attributes=null, DateSetInvitations=null, DateOfBirth=null, DateFirstVisit=null, DateLastActive=null, DateUpdated=SYSDATE(), InsertIPAddress=null, LastIPAddress=null, HourOffset='0', Score=null, Admin=0, Deleted=1 where UserID=<id>;
+```
+2. Blank user content - Delete the user and replace all of the user's content with a message stating the user has been deleted (In addition to changing their display name to `[Deleted User]`, their discussion and comments will be replaced with `The user and all related content has been deleted.`). This gives a visual cue that there is missing information.
+```mysql
+delete from GDN_UserAuthentication where UserID=<id>;
+delete from GDN_Role where UserID=<id>;
+delete from GDN_Invitation where InsertUserID=<id> or AcceptedUserID=<id>;
+delete from GDN_Activity where InsertUserID=<id>;
+delete from GDN_Log where RecordUserID=<id> and Operation='Pending';
+delete from GDN_UserCategory where UserID=<id>;
+update GDN_User set Name='[Deleted User]', Photo='', About='', Title='', Location='', Password='<random string>', HashMethod='Random', About='', Email='user_<id>@deleted.invalid', ShowEmail='0', Gender='u', CountVisits=0, CountInvitations=0, CountNotifications=0, InviteUserID=null, DiscoveryText='', Preferences=null, Permissions=null, Attributes=null, DateSetInvitations=null, DateOfBirth=null, DateFirstVisit=null, DateLastActive=null, DateUpdated=SYSDATE(), InsertIPAddress=null, LastIPAddress=null, HourOffset='0', Score=null, Admin=0, Deleted=1 where UserID=<id>;
+delete from GDN_UserPoints where UserID=<id>;
+delete from GDN_UserDiscussion where UserID=<id>;
+delete from GDN_Draft where InsertUserID=<id>;
+update GDN_Discussion set Body="The user and all related content has been deleted.", Format="Deleted" where InsertUserID=<id>;
+update GDN_Comment set Body="The user and all related content has been deleted.", Format="Deleted" where InsertUserID=<id>;
+update GDN_User set CountDiscussions=0, CountUnreadDiscussions=0, CountComments=0, CountDrafts=0, CountBookmarks=0 where UserID=<id>;
+```
+3. Delete user content - Delete the user and completely remove all of the user's content. This may cause discussions to be disjointed. Best option for removing spam. [This is surprisingly complicated](https://github.com/vanilla/vanilla/blob/2a966a61d9acd6dfdfc78510b4f2387b36756649/applications/vanilla/settings/class.hooks.php#L154-L227) (easy to programmatically look through matching discussions, less easy to do it with raw SQL) and of questionable utility, so we should keep to options 1 and 2 instead.
 
 Obviously, if other users mention a deleted user by name or quote their content in their own comments, this will remain.
 
-
-### Delete user and all their data
-
-TODO
-
-
-### Delete user and anonymize their data
-
-TODO
-
-
-## To-do
-
-- Documentation
-  - Add SQL for deleting users and anonymizing user data
+See the Vanilla source code([1](https://github.com/vanilla/vanilla/blob/2a966a61d9acd6dfdfc78510b4f2387b36756649/applications/dashboard/models/class.usermodel.php#L5325-L5464), [2](https://github.com/vanilla/vanilla/blob/2a966a61d9acd6dfdfc78510b4f2387b36756649/applications/vanilla/settings/class.hooks.php#L128-L256)) for more details.
 
 
 ## Development
