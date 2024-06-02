@@ -49,15 +49,22 @@ module DiscussionsHelper
       output = content_tag(:em, "Unknown post format!")
     end
     # auto link @usernames
-    output.gsub!(/@([-_A-z0-9]+)/) do |match|
-      username = $1
-      disp_username = "@#{username}"
-      user = User.where(name: username).first
-      if user && !user.private?
-        link_to disp_username, user_path(user.id)
-      else
-        disp_username
+    begin
+      output.gsub!(/@([-_A-z0-9]+)/) do |match|
+        username = $1
+        disp_username = "@#{username}"
+        user = User.where(name: username).first
+        if user && !user.private?
+          link_to disp_username, user_path(user.id)
+        else
+          disp_username
+        end
       end
+    rescue ArgumentError => e
+      # some content was causing the @username match gsub to fail with
+      # `ArgumentError (invalid byte sequence in UTF-8)` - don't make the app
+      # crash over this, but log it
+      logger.error "************ the following content failed with #{e.message} (#{e.class}):\n#{output}"
     end
     if truncate
       strip_tags(output).truncate(truncate).html_safe
