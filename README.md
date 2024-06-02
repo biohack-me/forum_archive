@@ -28,9 +28,6 @@ TODO
 
 ## To-do
 
-- Archive
-  - Caching
-    - cache all non-search controller actions for 12 hours, as the only things that should change are user deletions and patreon posts
 - Documentation
   - Add SQL for deleting users and anonymizing user data
 

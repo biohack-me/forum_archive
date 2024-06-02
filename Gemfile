@@ -11,7 +11,8 @@ gem 'sassc-rails'
 gem 'sprockets-rails'
 gem 'redcarpet'
 gem 'rails_autolink'
-gem "jquery-rails"
+gem 'jquery-rails'
+gem 'actionpack-action_caching'
 
 group :test do
   gem 'minitest',           require: false
@@ -30,7 +31,7 @@ group :development do
   gem 'capistrano-rvm',     require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails',   require: false
-  gem 'capistrano3-puma',   require: false, github: "seuros/capistrano-puma"
-  gem "brakeman",           require: false
+  gem 'capistrano3-puma',   require: false, github: 'seuros/capistrano-puma'
+  gem 'brakeman',           require: false
   gem 'faker',              require: false
 end
