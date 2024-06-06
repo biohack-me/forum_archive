@@ -60,8 +60,33 @@
     }
   }
 }
-.user_activity {  
+@media screen and (min-width: 550px) {
+  /* desktop layout */
+  .user_header {
+    .avatar {
+      float: left;
+    }
+    .user_details {
+      display: inline;
+    }
+  }
+}
+@media screen and (max-width: 550px) {
+  /* mobile layout */
+  .user_header {
+    .avatar {
+      float: none;
+    }
+    .user_details {
+      display: inline;
+      h1.name {
+        margin: .5em 0 .5em 0;
+      }
+    }
+  }
+}
 
+.user_activity {  
   .content_heading {
     h2 {
       margin-right: .5em;
