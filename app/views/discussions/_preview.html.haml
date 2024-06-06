@@ -14,6 +14,8 @@
   - if show_author
     .author
       = user_link_unless_private(discussion.creator)
+  .date
+    = date_disp(discussion.created)
   .views
     #{view_count(discussion.view_count)} views
   .comments
@@ -23,8 +25,6 @@
       Most recent by #{user_link_unless_private(discussion.last_user)}
       - if !discussion.last_posted.blank?
         on #{link_to date_disp(discussion.last_posted), discussion_path(discussion.id, anchor: discussion.last_comment_id)}
-  .date
-    = date_disp(discussion.created)
   - if show_cat
     .category
       = link_to discussion.category.name, category_path(discussion.category.id)
