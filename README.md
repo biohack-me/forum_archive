@@ -99,6 +99,19 @@ rails s
 The development site should now be available at http://localhost:3000.
 
 
+## Deploying
+
+If you are part of the team that has access to deploy this to the web, you will have to set up github to accept changes from your computer by [adding a public SSH key](https://github.com/settings/keys).
+
+You should also SSH to the server and add your public SSH key to the `.ssh/authorized_keys` file.
+
+Then, after pushing your changes to github, all you have to do is run:
+```bash
+cap production deploy
+```
+from your local machine.
+
+
 ## Contributing
 
 1. Fork this repository
