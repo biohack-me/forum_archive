@@ -23,7 +23,7 @@
 - unless @discussion.comments.blank?
   .clear.vertical_spacer
   %h2 Comments
-  %ul.discussion_comments
+  %ol.discussion_comments
     - @discussion.comments.each do |comment|
       %li.discussion_comment
         %a{name: comment.id}

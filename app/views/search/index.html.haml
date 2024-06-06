@@ -9,7 +9,7 @@
   - else
     %h2
       #{pluralize @results.size, 'result'} for '#{params[:s]}'
-    %ul.search_results
+    %ol.search_results
       - @results.each do |result|
         %li
           - if result.is_a?(Discussion)
