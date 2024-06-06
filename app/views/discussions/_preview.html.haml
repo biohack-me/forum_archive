@@ -21,6 +21,8 @@
   - if discussion.last_user
     .last_comment
       Most recent by #{user_link_unless_private(discussion.last_user)}
+      - if !discussion.last_posted.blank?
+        on #{link_to date_disp(discussion.last_posted), discussion_path(discussion.id, anchor: discussion.last_comment_id)}
   .date
     = date_disp(discussion.created)
   - if show_cat

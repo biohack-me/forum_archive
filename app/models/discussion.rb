@@ -15,17 +15,18 @@ class Discussion < ApplicationRecord
     where('UPPER(Tags) like ?', "%#{tag.upcase}%")
   }
 
-  alias_attribute :name,          :Name
-  alias_attribute :body,          :Body
-  alias_attribute :created,       :DateInserted
-  alias_attribute :updated,       :DateUpdated
-  alias_attribute :announce,      :Announce
-  alias_attribute :closed,        :Closed
-  alias_attribute :view_count,    :CountViews
-  alias_attribute :comment_count, :CountComments
-  alias_attribute :last_posted,   :DateLastComment
-  alias_attribute :tags,          :Tags
-  alias_attribute :format,        :Format
+  alias_attribute :name,            :Name
+  alias_attribute :body,            :Body
+  alias_attribute :created,         :DateInserted
+  alias_attribute :updated,         :DateUpdated
+  alias_attribute :announce,        :Announce
+  alias_attribute :closed,          :Closed
+  alias_attribute :view_count,      :CountViews
+  alias_attribute :comment_count,   :CountComments
+  alias_attribute :last_posted,     :DateLastComment
+  alias_attribute :last_comment_id, :LastCommentID
+  alias_attribute :tags,            :Tags
+  alias_attribute :format,          :Format
 
   def announcement?
     announce > 0
