@@ -33,6 +33,28 @@ ol#category_list {
   font-style: italic;
   color: rgb(136, 136, 136);
 }
+@media screen and (min-width: 550px) {
+  /* desktop layout */
+  .category_description {
+    display: inline-block;
+    width: 74%;
+  }
+  .category_counts {
+    display: inline-block;
+    width: 25%;
+  }
+}
+@media screen and (max-width: 550px) {
+  /* mobile layout */
+  .category_description {
+    display: block;
+    width: 100%;
+  }
+  .category_counts {
+    display: block;
+    width: 100%;
+  }
+}
 
 ol.discussions {
   list-style-type: none;
