@@ -16,6 +16,8 @@ ul.search_results {
   list-style-type: none;
   margin: 0;
   padding:  1em .75em 1em .75em;
+  max-width: 60em;
+  overflow: hidden;
   li {
     margin: 0 !important;
     padding: .5em 0 .5em 0;

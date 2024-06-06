@@ -108,6 +108,8 @@ ul.discussion_comments {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  max-width: 60em;
+  overflow: hidden;
   li.discussion_comment {
     margin-top: 1em;
     margin-bottom: 1em;
