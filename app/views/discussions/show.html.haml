@@ -23,8 +23,13 @@
 - unless @discussion.comments.blank?
   .clear.vertical_spacer
   %h2 Comments
+  - comments = @discussion.comments.paginate(per_page: 30, page: params[:page])
+  .pagination_container
+    .page_info
+      = page_entries_info comments, entry_name: 'comment'
+    = will_paginate comments
   %ol.discussion_comments
-    - @discussion.comments.each do |comment|
+    - comments.each do |comment|
       %li.discussion_comment
         %a{name: comment.id}
         = render partial: 'users/author', locals: { user: comment.creator }
@@ -36,5 +41,9 @@
               edited #{date_disp(comment.updated)}
         .post_body
           = format_post comment.format, comment.body
+  .pagination_container
+    .page_info
+      = page_entries_info comments, entry_name: 'comment'
+    = will_paginate comments
 
   .clear.vertical_spacer

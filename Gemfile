@@ -13,6 +13,7 @@ gem 'redcarpet'
 gem 'rails_autolink'
 gem 'jquery-rails'
 gem 'actionpack-action_caching'
+gem 'will_paginate'
 
 group :test do
   gem 'minitest',           require: false
