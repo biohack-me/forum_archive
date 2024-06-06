@@ -60,20 +60,14 @@ Create new `config/master.key` and `config/credentials.yml.enc` files:
 bundle exec rails secret | cut -c-32 > config/master.key
 EDITOR=vim rails credentials:edit
 ```
-Add database connection info to the credentials file this opens, with a password you will use in the MySQL setup below:
-```
-database:
-  development:
-    password: '<password>'
-  test:
-    password: '<password>'
-```
+
+Copy the provided `config/database.yml.example` file to `config/database.yml` and set a database password you will use in the MySQL setup below.
 
 Then, set up a development database:
 ```bash
 mysql -u root -p
 ```
-and in the MySQL console, using the password from the `credentials.yml.enc` file, above:
+and in the MySQL console, using the password you set in `config/database.yml`, above:
 ```mysql
 create database biohackme_vanilla;
 create database biohackme_vanilla_test;

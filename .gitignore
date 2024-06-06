@@ -38,6 +38,9 @@
 # about accidentally committing changes to that file.
 /config/credentials.yml.enc
 
+# there's nothing really sensitive in here, and yet...
+/config/database.yml
+
 # Uploaded files from Vanilla that shouldn't be committed and/or re-downloaded
 # for each deploy
 app/assets/images/userpics/*
