@@ -9,12 +9,16 @@
   = csrf_meta_tag
   = csp_meta_tag
   = stylesheet_link_tag :application, media: :all, "data-turbo-track": "reload"
+  = javascript_include_tag :application
 %body
   #container
     %header{role: 'banner'}
       = link_to image_tag("sigil.png", alt: 'biohack.me', width: 75, height: 73), 'https://biohack.me'
     %nav{role: 'navigation'}
-      %ul
+      %ul.mobile
+        %li
+          %a#toggle_navigation{href: '#'} Navigation
+      %ul.navigation
         %li
           = link_to 'Discussion categories', root_url
         %li

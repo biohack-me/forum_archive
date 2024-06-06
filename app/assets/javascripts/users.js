@@ -1,5 +1,3 @@
-//= require jquery3
-
 function toggle_discussions() {
   $("#user_discussions").fadeToggle();
   $("#toggle_discussions").text($("#toggle_discussions").text() == 'show discussions' ? 'hide discussions' : 'show discussions');

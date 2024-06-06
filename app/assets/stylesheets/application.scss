@@ -78,8 +78,55 @@ nav {
       }
     }
   }
+  ul.mobile {
+    li {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
   a:link, a:active, a:visited {
     color: #000000;
+  }
+}
+@media screen and (min-width: 550px) {
+  /* desktop layout */
+  ul.mobile {
+    display: none;
+  }
+  ul.navigation { }
+  nav {
+    ul.navigation {
+      li {
+        display: inline-block;
+        width: 11.5em;
+        text-align: left;
+      }
+    }
+  }
+}
+@media screen and (max-width: 550px) {
+  /* mobile layout */
+  ul.mobile { }
+  ul.navigation {
+    display: none;
+  }
+  nav {
+    ul.navigation {
+      li {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: .5em 0 .5em 0;
+      }
+      li:first-child {
+        text-align: center;
+      }
+      li:last-child {
+        text-align: center;
+        width: 100%;
+      }
+    }
   }
 }
 
