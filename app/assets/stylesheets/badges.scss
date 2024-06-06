@@ -93,3 +93,31 @@
     }
   }
 }
+@media screen and (min-width: 550px) {
+  /* desktop layout */
+  .leaderboard_toggle, .recipient_toggle {
+    display: none;
+  }
+  .leaderboard ol, .recipients {
+    display: visible;
+  }
+}
+@media screen and (max-width: 550px) {
+  /* mobile layout */
+  .leaderboard_toggle, .recipient_toggle {
+    margin: 1em 0 1em 0;
+  }
+  .leaderboard ol, .recipients {
+    display: none;
+  }
+  #leaderboard_badges {
+    display:flex;
+    flex-flow: column;
+    .leaderboard {
+      order: 2;
+    }
+    .recipients {
+      order: 1;
+    }
+  }
+}

@@ -1,33 +1,41 @@
-.leaderboard
-  %strong All time leaders
-  %ol
-    - User.where('points > ?', 0).order('points desc').each do |user|
-      %li
-        .lb
-          .lb_user
-            = user_avatar_link_unless_private(user)
-            = user_link_unless_private(user)
-          .lb_points
-            #{user.points} points
-        .clear
+= javascript_include_tag :badges
 
-.badge
-  .image
-    = image_tag(@badge.image_path, alt: @badge.name, title: @badge.name, width: 100, height: 100, loading: 'lazy')
-  .name
-    = @badge.name
-  .description
-    = @badge.description
-  .users
-    #{pluralize @badge.user_badges.size, 'people'} have earned this badge.
-    .recipients
-      %strong Recipients:
-      - @badge.user_badges.sorted.reverse.each do |user_badge|
-        .user_badge_container
-          .user_info
-            = user_avatar_link_unless_private(user_badge.user)
-            = user_link_unless_private(user_badge.user)
-          .user_date
-            = date_disp(user_badge.created)
+#leaderboard_badges
+
+  .leaderboard
+    %strong All time leaders
+    .leaderboard_toggle
+      %a#toggle_leaders{href: '#'} show leaderboard
+    %ol
+      - User.where('points > ?', 0).order('points desc').each do |user|
+        %li
+          .lb
+            .lb_user
+              = user_avatar_link_unless_private(user)
+              = user_link_unless_private(user)
+            .lb_points
+              #{user.points} points
+          .clear
+
+  .badge
+    .image
+      = image_tag(@badge.image_path, alt: @badge.name, title: @badge.name, width: 100, height: 100, loading: 'lazy')
+    .name
+      = @badge.name
+    .description
+      = @badge.description
+    .users
+      #{pluralize @badge.user_badges.size, 'people'} have earned this badge.
+      .recipient_toggle
+        %a#toggle_badge_winners{href: '#'} show recipients
+      .recipients
+        %strong Recipients:
+        - @badge.user_badges.sorted.reverse.each do |user_badge|
+          .user_badge_container
+            .user_info
+              = user_avatar_link_unless_private(user_badge.user)
+              = user_link_unless_private(user_badge.user)
+            .user_date
+              = date_disp(user_badge.created)
 
 .clear.vertical_spacer
