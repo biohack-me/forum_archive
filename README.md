@@ -11,12 +11,15 @@ So, I (@tekniklr), decided to roll up a quick rails app to connect to the existi
 
 Patreon badges and shoutouts are handled via a [cron task](https://github.com/biohack-me/Patreon-patron-sync) that talks directly to the database - no Vanilla install required. These can continue operating despite the forum being a read-only archive.
 
-If a forum user previously had their email visible on their profile and wants it hidden, this can be done with:
+When former forum users want their data updated, this may be possible directly in the database (e.g., with [phpMyAdmin](https://www.phpmyadmin.net/)).
+
+If they previously had their email visible on their profile and want it hidden, this can be done with:
 ```mysql
 update GDN_User set ShowEmail=1 where UserID=<id>;
 ```
+Their email, in addition to potentially being shown on their profile, is also used to pull [gravatar](https://gravatar.com/) avatars so should not be nullified for a non-deleted user.
 
-If a forum user wants to have their data removed this can be done directly in the database (e.g., with [phpMyAdmin](https://www.phpmyadmin.net/)). There are three ways Vanilla does it:
+If they want to have their data removed there are three ways Vanilla did it:
 1. Keep user content - Delete the user but keep the user's content (it will show as being authored by `[Deleted User]`).
 ```mysql
 delete from GDN_UserAuthentication where UserID=<id>;
@@ -47,7 +50,7 @@ update GDN_User set CountDiscussions=0, CountUnreadDiscussions=0, CountComments=
 
 Obviously, if other users mention a deleted user by name or quote their content in their own comments, this will remain.
 
-See the Vanilla source code([1](https://github.com/vanilla/vanilla/blob/2a966a61d9acd6dfdfc78510b4f2387b36756649/applications/dashboard/models/class.usermodel.php#L5325-L5464), [2](https://github.com/vanilla/vanilla/blob/2a966a61d9acd6dfdfc78510b4f2387b36756649/applications/vanilla/settings/class.hooks.php#L128-L256)) for more details.
+See the Vanilla source code([1](https://github.com/vanilla/vanilla/blob/2a966a61d9acd6dfdfc78510b4f2387b36756649/applications/dashboard/models/class.usermodel.php#L5325-L5464), [2](https://github.com/vanilla/vanilla/blob/2a966a61d9acd6dfdfc78510b4f2387b36756649/applications/vanilla/settings/class.hooks.php#L128-L256)) for more details on deleting users.
 
 
 ## Development
