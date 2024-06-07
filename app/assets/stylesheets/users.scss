@@ -16,48 +16,6 @@
     h1.name {
       text-align: left;
     }
-    dl.about {
-      font-size: 11px;
-      line-height: 14px;
-      dt {
-        display: inline;
-        margin: 0 .1em 0 0;
-        padding: 0 0 0 14px;
-        vertical-align: baseline;
-        color: rgb(102, 102, 102);
-        background: url("profile-sprites.png") 2px -139px no-repeat transparent;
-      }
-      dd {
-        display: inline;
-        margin: 0 1em 0 0 ;
-        padding: 0 0 0 0;
-        vertical-align: baseline;
-        color: rgb(0, 0, 0);
-      }
-      dt.name {
-        background-position: 0 -26px;
-      }
-      dt.email {
-        background-position: 0 -53px;
-      }
-      dt.joined {
-        background-position: 0 3px;
-      }
-      dt.visits { }
-      dt.last_active {
-        background-position: 0 3px;
-      }
-      dt.roles {
-        background-position: 1px -81px;
-      }
-      dt.joined {
-        background-position: 0 3px;
-      }
-      dt.points { }
-      dt.pronouns { }
-      dt.skills { }
-      dt.badges { }
-    }
   }
 }
 @media screen and (min-width: 550px) {
@@ -84,6 +42,49 @@
       }
     }
   }
+}
+
+dl.about {
+  font-size: 11px;
+  line-height: 14px;
+  dt {
+    display: inline;
+    margin: 0 .1em 0 0;
+    padding: 0 0 0 14px;
+    vertical-align: baseline;
+    color: rgb(102, 102, 102);
+    background: url("profile-sprites.png") 2px -139px no-repeat transparent;
+  }
+  dd {
+    display: inline;
+    margin: 0 1em 0 0 ;
+    padding: 0 0 0 0;
+    vertical-align: baseline;
+    color: rgb(0, 0, 0);
+  }
+  dt.name {
+    background-position: 0 -26px;
+  }
+  dt.email {
+    background-position: 0 -53px;
+  }
+  dt.joined {
+    background-position: 0 3px;
+  }
+  dt.visits { }
+  dt.last_active {
+    background-position: 0 3px;
+  }
+  dt.roles {
+    background-position: 1px -81px;
+  }
+  dt.joined {
+    background-position: 0 3px;
+  }
+  dt.points { }
+  dt.pronouns { }
+  dt.skills { }
+  dt.badges { }
 }
 
 .user_activity {  

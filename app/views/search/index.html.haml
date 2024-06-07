@@ -3,17 +3,25 @@
     = text_field_tag :s, params[:s], autocomplete: 'off', placeholder: 'Search archive'
 
 - unless params[:s].blank?
-  - if @results.empty?
+  - if @users.empty? && @results.empty?
     %p
       No results for <strong>#{params[:s]}</strong>.
   - else
-    %h2
-      #{pluralize @results.size, 'result'} for '#{params[:s]}'
-    %ol.search_results
-      - @results.each do |result|
-        %li
-          - if result.is_a?(Discussion)
-            = render partial: 'discussion', locals: { discussion: result }
-          - elsif result.is_a?(Comment)
-            - result.discussion or next
-            = render partial: 'comment', locals: { comment: result }
+    - if !@users.empty?
+      %h2
+        #{pluralize @users.size, 'user'} like '#{params[:s]}'
+      %ol.search_results
+        - @users.each do |user|
+          %li
+            = render partial: 'user', locals: { user: user }
+    - if !@results.empty?
+      %h2
+        #{pluralize @results.size, 'post'} containing '#{params[:s]}'
+      %ol.search_results
+        - @results.each do |result|
+          %li
+            - if result.is_a?(Discussion)
+              = render partial: 'discussion', locals: { discussion: result }
+            - elsif result.is_a?(Comment)
+              - result.discussion or next
+              = render partial: 'comment', locals: { comment: result }

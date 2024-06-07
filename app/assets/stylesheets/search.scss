@@ -31,6 +31,45 @@ ol.search_results {
 }
 
 .search_results {
+  .user_details {
+    display: block;
+    margin: 0;
+    padding: 0;
+    .avatar {
+      display: block;
+      float: left;
+      padding: 0;
+      margin: 0 .5em 0 0;
+      vertical-align: top;
+      max-width: 40px;
+      overflow: hidden;
+    }
+    .user_preview {
+      display: inline-block;
+      max-width: 54em;
+      .name {
+        display: block;
+        vertical-align: bottom;
+        font-size: 125%;
+        font-weight: 700;
+        a:link, a:active, a:visited {
+          color: rgb(29, 86, 137);
+        }
+      }
+      dl.about {
+        dt.badges {
+          display: inline !important;
+        }
+        dd.badges {
+          display: inline !important;
+        }
+      }
+      .badges {
+        display: block;
+        vertical-align: bottom;
+      }
+    }
+  }
   .discussion_metadata, .comment_preview {
     a:link, a:active, a:visited {
       color: rgb(0, 0, 0);

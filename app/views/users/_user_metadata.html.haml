@@ -1,0 +1,51 @@
+%dl.about
+
+  - if user.show_email?
+    %dt.email
+      Email
+    %dd.email
+      = mail_to user.email
+
+  %dt.joined
+    Joined
+  %dd.joined
+    = date_disp(user.created)
+
+  %dt.visits
+    Visits
+  %dd.visits
+    = user.visit_count
+
+  - if user.last_active
+    %dt.last_active
+      Last active
+    %dd.last_active
+      = date_disp(user.last_active)
+
+  %dt.roles
+    Roles
+  %dd.roles
+    = user.roles.collect(&:name).join(', ')
+
+  - if user.points > 0
+    %dt.points
+      Points
+    %dd.points
+      = user.points
+
+  - if !user.pronouns.blank?
+    %dt.pronouns
+      Pronouns
+    %dd.pronouns
+      = user.pronouns
+
+  - if !user.skills.blank?
+    %dt.skills
+      Skills
+    %dd.skills
+      = user.skills
+
+  %dt.badges
+    Badges
+  %dd.badges
+    = user.user_badges.size

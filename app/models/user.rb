@@ -10,6 +10,11 @@ class User < ApplicationRecord
   has_many   :roles,       through: :user_roles
   has_many   :user_meta,   class_name: 'UserMeta', foreign_key: :UserID
 
+  scope :find_by_username, lambda { |name|
+    where('UPPER(Name) like ?', "%#{name.upcase}%").
+    order('Name asc')
+  }
+
   alias_attribute :name,            :Name
   alias_attribute :photo,           :Photo
   alias_attribute :email,           :Email
