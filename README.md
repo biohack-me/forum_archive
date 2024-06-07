@@ -11,6 +11,11 @@ So, I (@tekniklr), decided to roll up a quick rails app to connect to the existi
 
 Patreon badges and shoutouts are handled via a [cron task](https://github.com/biohack-me/Patreon-patron-sync) that talks directly to the database - no Vanilla install required. These can continue operating despite the forum being a read-only archive.
 
+If a forum user previously had their email visible on their profile and wants it hidden, this can be done with:
+```mysql
+update GDN_User set ShowEmail=1 where UserID=<id>;
+```
+
 If a forum user wants to have their data removed this can be done directly in the database (e.g., with [phpMyAdmin](https://www.phpmyadmin.net/)). There are three ways Vanilla does it:
 1. Keep user content - Delete the user but keep the user's content (it will show as being authored by `[Deleted User]`).
 ```mysql
