@@ -25,4 +25,13 @@ class DiscussionTest < ActiveSupport::TestCase
     assert_equal [],                  discussions(:three).tag_list
   end
 
+  should "know how many pages of comments it will have, and what page those comments are on" do
+    for i in 0..70 do
+      discussions(:one).comments.build(id: i.to_i+10, created: discussions(:one).created+(i.to_i).minutes)
+    end
+    assert_equal 72, discussions(:one).comments.size, discussions(:one).comments.inspect
+    assert_equal 3, discussions(:one).num_comment_pages
+    assert_equal 2, discussions(:one).comment_page(discussions(:one).comments[45].id)
+  end
+
 end

@@ -4,6 +4,16 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+patreon:
+  DiscussionID: 2567
+  CategoryID: 1
+  InsertUserID: 1
+  Name: Shempy patreon discussion
+  Body: Thank you, Shemp!
+  DateInserted: <%= 1.week.ago.to_fs(:db) %>
+  Announce: 2
+  Closed: 1
+  Tags:
 one:
   DiscussionID: 1
   CategoryID: 1

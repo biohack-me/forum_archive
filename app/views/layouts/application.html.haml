@@ -34,7 +34,8 @@
       %p
         The biohack.me forums were originally run on #{link_to 'Vanilla', 'https://open.vanillaforums.com/'} and ran from January 2011 to June 2024. #{link_to 'They are preserved here as a read-only archive', 'https://github.com/biohack-me/forum_archive'}.
       %p
-        While we are no longer running Vanilla, #{link_to 'Patreon', 'https://www.patreon.com/biohack'} badges are still being awarded, and #{link_to 'shoutout forum posts', discussion_path(2567, anchor: 'pageBottom')} are being created, because this is done directly in the database via an #{link_to 'automated task', 'https://github.com/biohack-me/Patreon-patron-sync'}.
+        - patreon_discussion = Discussion.find(2567)
+        While we are no longer running Vanilla, #{link_to 'Patreon', 'https://www.patreon.com/biohack'} badges are still being awarded, and #{link_to 'shoutout forum posts', discussion_path(patreon_discussion.id, page: patreon_discussion.num_comment_pages, anchor: patreon_discussion.last_comment_id)} are being created, because this is done directly in the database via an #{link_to 'automated task', 'https://github.com/biohack-me/Patreon-patron-sync'}.
       %a{name: 'skipNav'}
       = yield
       %a{name: 'pageBottom'}

@@ -3,7 +3,9 @@ class Discussion < ApplicationRecord
   self.primary_key = :DiscussionID
 
   belongs_to :category,   foreign_key: :CategoryID
-  has_many   :comments,   foreign_key: :DiscussionID
+  has_many   :comments,   -> {
+    order('DateInserted asc')
+  }, foreign_key: :DiscussionID
   has_one    :creator,    class_name: 'User', primary_key: :InsertUserID, foreign_key: :UserID
   has_one    :last_user,  class_name: 'User', primary_key: :LastCommentUserID, foreign_key: :UserID
 
@@ -47,6 +49,21 @@ class Discussion < ApplicationRecord
       tag_list = tags.split(/\s/)
     end
     tag_list.collect{|t| t.squish}.reject{|t| t.blank?}
+  end
+
+  # will return the number of pages will_paginate will break this discussion's
+  # comments into
+  def num_comment_pages
+    (comments.size/PER_PAGE_MAX.to_f).ceil
+  end
+
+  # given a comment ID, will return the page number that comment will appear on
+  # in this discussion's paginated comments
+  def comment_page(comment_id)
+    comment_ids = comments.collect(&:id)
+    index = comment_ids.find_index(comment_id.to_i)
+    index.blank? and return 1
+    (index/PER_PAGE_MAX)+1
   end
 
 end

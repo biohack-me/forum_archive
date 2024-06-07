@@ -2,7 +2,7 @@
 .comment_details
   .name
     Re:
-    = link_to comment.discussion.name, discussion_path(comment.discussion.id, anchor: comment.id)
+    = link_to comment.discussion.name, discussion_path(comment.discussion.id, page: comment.discussion.comment_page(comment.id), anchor: comment.id)
   .avatar{title: comment.creator.name}
     = user_avatar_link_unless_private(comment.creator)
   .comment_preview

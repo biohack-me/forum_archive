@@ -23,7 +23,7 @@
 - unless @discussion.comments.blank?
   .clear.vertical_spacer
   %h2 Comments
-  - comments = @discussion.comments.paginate(per_page: 30, page: params[:page])
+  - comments = @discussion.comments.paginate(per_page: PER_PAGE_MAX, page: params[:page])
   .pagination_container
     .page_info
       = page_entries_info comments, entry_name: 'comment'
