@@ -5,7 +5,8 @@
   .user_preview  
     .name
       = user_link_unless_private(user)
-    = render partial: 'users/user_metadata', locals: { user: user }
+    - unless user.private?
+      = render partial: 'users/user_metadata', locals: { user: user }
     .badges
       - user.user_badges.sorted.each do |userbadge|
         - badge = userbadge.badge
