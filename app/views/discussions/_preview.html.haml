@@ -4,7 +4,7 @@
     = user_avatar_link_unless_private(discussion.creator)
 .discussion_preview  
   .name
-    = link_to discussion.name, discussion_path(discussion.id)
+    = link_to discussion.name, discussion_path(discussion.id, page: 1)
   .flags
     %ul
       - if discussion.announcement?

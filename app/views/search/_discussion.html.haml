@@ -1,7 +1,7 @@
 .clear.vertical_spacer
 .discussion_details
   .name
-    = link_to discussion.name, discussion_path(discussion.id)
+    = link_to discussion.name, discussion_path(discussion.id, page: 1)
   .avatar{title: discussion.creator.name}
     = user_avatar_link_unless_private(discussion.creator)
   .discussion_preview

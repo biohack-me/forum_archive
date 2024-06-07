@@ -19,7 +19,7 @@ module DiscussionsHelper
     # any links to other forum posts need to be updated
     content.gsub!(/https:\/\/forum.biohack.me\/index.php\?p=\/discussion\/([0-9]+)\/[-_0-9A-z]+/) do |match|
       discussion_id = $1
-      discussion_path(discussion_id)
+      discussion_path(discussion_id, page: 1)
     end
     # ditto any links to uploaded forum media
     content.gsub!(/https:\/\/forum.biohack.me\/uploads\/editor\/([-_\/.A-z0-9]*)/) do |match|
