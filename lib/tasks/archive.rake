@@ -67,7 +67,7 @@ namespace :archive do
     puts "\nDiscussions..."
     discussion_ids = []
     seedfile.write "\n\n\n###### Discussions...\n"
-    attributes = ['DiscussionID', 'CategoryID', 'InsertUserID', 'DateInserted', 'DateUpdated', 'Announce', 'Closed', 'CountViews', 'CountComments', 'DateLastComment', 'LastCommentUserID', 'Tags'] # copied verbatum; anonymized data individualized, below
+    attributes = ['DiscussionID', 'CategoryID', 'InsertUserID', 'DateInserted', 'DateUpdated', 'Announce', 'Closed', 'CountViews', 'CountComments', 'DateLastComment', 'LastCommentID', 'LastCommentUserID', 'Tags'] # copied verbatum; anonymized data individualized, below
     cat_ids.each do |c_id|
       discussions = Discussion.where('CategoryID = ?', c_id).sorted.limit(10)
       discussions.each do |d|
