@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   scope :find_by_username, lambda { |name|
     where('UPPER(Name) like ?', "%#{name.upcase}%").
+    where('Name != ?', '[Deleted User]').
     order('Name asc')
   }
 
