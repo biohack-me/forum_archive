@@ -11,7 +11,9 @@ class Discussion < ApplicationRecord
 
   scope :sorted, -> { order(Arel.sql("FIELD(Announce,0) asc, DateLastComment desc, DateInserted desc")) }
   scope :search, lambda { |term|
-    where('match(Name, Body) against(?)', term)
+    where('match(Name, Body) against(?)', term).
+    where('Name != ?', 'The user and all related content has been deleted.').
+    where('Body != ?', 'The user and all related content has been deleted.')
   }
   scope :tagged, lambda { |tag|
     where('UPPER(Tags) like ?', "%#{tag.upcase}%")

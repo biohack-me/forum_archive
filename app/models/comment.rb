@@ -7,7 +7,8 @@ class Comment < ApplicationRecord
 
   scope :sorted, -> { order('DateInserted desc') }
   scope :search, lambda { |term|
-    where('match(Body) against(?)', term)
+    where('match(Body) against(?)', term).
+    where('Body != ?', 'The user and all related content has been deleted.')
   }
 
   alias_attribute :body,    :Body
