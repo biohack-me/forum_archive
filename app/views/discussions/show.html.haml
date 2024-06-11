@@ -32,6 +32,8 @@
   %ol.discussion_comments
     - comments.each do |comment|
       %li.discussion_comment
+        - if comment == @discussion.comments.last
+          %a{name: 'latest'}
         %a{name: comment.id}
         = render partial: 'users/author', locals: { user: comment.creator }
         .post_metadata
@@ -48,3 +50,14 @@
     = will_paginate comments
 
   .clear.vertical_spacer
+
+  - if (@discussion.num_comment_pages > 1) && (params[:page].blank? || (params[:page].to_i < @discussion.num_comment_pages))
+    = javascript_tag nonce: true do
+      :plain
+        $(document).ready(function() {
+          const anchor = window.location.hash;
+          if (anchor == '#latest') {
+            console.log('Redirecting to last page/comment...');
+            window.location.href = '#{discussion_path(@discussion.id, page: @discussion.num_comment_pages, anchor: @discussion.last_comment_id)}';
+          }
+        });
