@@ -16,8 +16,9 @@ gem 'actionpack-action_caching'
 gem 'will_paginate'
 
 group :test do
-  gem 'minitest',           require: false
-  gem 'shoulda',            require: false
+  gem 'minitest',                require: false
+  gem 'shoulda',                 require: false
+  gem 'rails-controller-testing'
 end
 
 group :production do
