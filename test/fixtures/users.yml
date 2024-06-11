@@ -38,7 +38,7 @@ four:
   Photo: nil
 five:
   UserID: 5
-  Name: curly
+  Name: Biohack_bot
   Password: something else
   Email: test5@biohack.me
   DateInserted: <%= 1.month.ago.to_fs(:db) %>

@@ -6,7 +6,7 @@
 #
 one:
   CategoryID: 1
-  Name: Category one
+  Name: Announcements
   InsertUserID: 1
   DateInserted: <%= 1.week.ago.to_fs(:db) %>
   DateUpdated: <%= 1.week.ago.to_fs(:db) %>

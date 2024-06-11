@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :users,          only: [:show]
   resources :badges,         only: [:show]
   get       'tagged/(:tag)', to: 'tags#show', as: 'tag'
+
+  get       'index.php',     to: 'redirect#redirect'
 end
