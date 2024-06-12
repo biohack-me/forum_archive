@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   get       'index.php',     to: 'redirect#redirect'
 
   # route anything else to a custom 404
-  match     '*p',            to: "application#routing_error", via: :all
+  match     '*p',            to: "application#routing_error", via: :get
 end
