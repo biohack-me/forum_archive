@@ -11,19 +11,27 @@ module ApplicationHelper
   end
 
   def user_avatar_link_unless_private(user)
-    image = image_tag(user.photo_url, alt: user.name, width: 40, height: 40, loading: 'lazy')
-    if user.deleted? || user.private?
-      image
+    if user.blank?
+      image_tag('sigil.png', alt: 'unknown', title: 'unknown', width: 40, height: 40, loading: 'lazy')
     else
-      link_to image, user_path(user.id)
+      image = image_tag(user.photo_url, alt: user.name, title: user.name, width: 40, height: 40, loading: 'lazy')
+      if user.deleted? || user.private?
+        image
+      else
+        link_to image, user_path(user.id)
+      end
     end
   end
 
   def user_link_unless_private(user)
-    if user.deleted? || user.private?
-      user.name
+    if user.blank?
+      'unknown'
     else
-      link_to user.name, user_path(user.id)
+      if user.deleted? || user.private?
+        user.name
+      else
+        link_to user.name, user_path(user.id)
+      end
     end
   end
 

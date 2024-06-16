@@ -2,7 +2,7 @@
 .discussion_details
   .name
     = link_to discussion.name, discussion_path(discussion.id, page: 1)
-  .avatar{title: discussion.creator.name}
+  .avatar
     = user_avatar_link_unless_private(discussion.creator)
   .discussion_preview
     .author

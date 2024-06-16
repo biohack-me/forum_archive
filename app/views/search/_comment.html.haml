@@ -3,7 +3,7 @@
   .name
     Re:
     = link_to comment.discussion.name, discussion_path(comment.discussion.id, page: comment.discussion.comment_page(comment.id), anchor: comment.id)
-  .avatar{title: comment.creator.name}
+  .avatar
     = user_avatar_link_unless_private(comment.creator)
   .comment_preview
     .author

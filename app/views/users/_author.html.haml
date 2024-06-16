@@ -1,11 +1,12 @@
 .clear.vertical_spacer
 .post_author
-  .avatar{title: user.name}
+  .avatar
     = user_avatar_link_unless_private(user)
   .user_preview  
     .name
       = user_link_unless_private(user)
     .badges
-      - user.user_badges.sorted.each do |userbadge|
-        - badge = userbadge.badge
-        = link_to image_tag(badge.image_path, alt: badge.name, title: badge.name, width: 24, height: 24, loading: 'lazy'), badge_path(badge.id)
+      - if user
+        - user.user_badges.sorted.each do |userbadge|
+          - badge = userbadge.badge
+          = link_to image_tag(badge.image_path, alt: badge.name, title: badge.name, width: 24, height: 24, loading: 'lazy'), badge_path(badge.id)
