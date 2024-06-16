@@ -2,12 +2,13 @@ class Discussion < ApplicationRecord
   self.table_name = 'GDN_Discussion'
   self.primary_key = :DiscussionID
 
-  belongs_to :category,   foreign_key: :CategoryID
-  has_many   :comments,   -> {
+  belongs_to :category,    foreign_key: :CategoryID
+  has_many   :comments,    -> {
     order('DateInserted asc')
   }, foreign_key: :DiscussionID
-  has_one    :creator,    class_name: 'User', primary_key: :InsertUserID, foreign_key: :UserID
-  has_one    :last_user,  class_name: 'User', primary_key: :LastCommentUserID, foreign_key: :UserID
+  has_one    :creator,     class_name: 'User', primary_key: :InsertUserID, foreign_key: :UserID
+  has_one    :last_user,   class_name: 'User', primary_key: :LastCommentUserID, foreign_key: :UserID
+  has_many   :attachments, -> { Attachment.active.discussion }, foreign_key: :ForeignID
 
   scope :sorted, -> { order(Arel.sql("FIELD(Announce,0) asc, DateLastComment desc, DateInserted desc")) }
   scope :search, lambda { |term|

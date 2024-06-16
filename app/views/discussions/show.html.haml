@@ -12,7 +12,7 @@
       .category
         in #{link_to @discussion.category.name, category_path(@discussion.category.id)}
     .post_body
-      = format_post @discussion.format, @discussion.body
+      = format_post @discussion.format, @discussion.body, @discussion.attachments
     - unless @discussion.tag_list.empty?
       .post_tags
         Tagged:
@@ -43,7 +43,7 @@
             .date_edited
               edited #{date_disp(comment.updated)}
         .post_body
-          = format_post comment.format, comment.body
+          = format_post comment.format, comment.body, comment.attachments
   .pagination_container
     .page_info
       = page_entries_info comments, entry_name: 'comment'

@@ -14,7 +14,7 @@ module DiscussionsHelper
   # Discussions and Comments have content in one of the following formats:
   #   "Html", "TextEx", "Markdown", "Deleted"
   # given raw content, generate an output rails can use
-  def format_post(format, raw_content, truncate = false)
+  def format_post(format, raw_content, attachments, truncate = false)
     content = raw_content
     # any links to other forum posts need to be updated
     content.gsub!(/https:\/\/forum.biohack.me\/index.php\?p=\/discussion\/([0-9]+)\/[-_0-9A-z]+/) do |match|
@@ -65,6 +65,31 @@ module DiscussionsHelper
       # `ArgumentError (invalid byte sequence in UTF-8)` - don't make the app
       # crash over this, but log it
       logger.error "************ the following content failed with #{e.message} (#{e.class}):\n#{output}"
+    end
+    unless attachments.empty?
+      output << "<ul class='attachments'>"
+      attachments.each do |attachment|
+        attachment_link = begin
+                            asset_path(attachment.path)
+                          rescue
+                            false
+                          end
+        if attachment_link
+          output << "<li id='#{attachment.id}'>"
+          thumb_path = attachment.is_image? ? attachment.thumb_path : 'file.png'
+          output << '<div class="preview">'
+          output << link_to(image_tag(thumb_path, alt: attachment.name, title: attachment.name, width: 30, height: 30, loading: 'lazy'), attachment_link, target: '_blank')
+          output << '</div>'
+          output << '<div class="details">'
+          output << link_to(attachment.name.truncate(attachment.is_image? ? 24 : 27), attachment_link, target: '_blank')
+          output << '<div class="file_size">'
+          output << number_to_human_size(attachment.size)
+          output << '</div>'
+          output << '</div>'
+          output << '</li>'
+        end
+      end
+      output << "</ul>"
     end
     if truncate
       strip_tags(output).truncate(truncate).html_safe

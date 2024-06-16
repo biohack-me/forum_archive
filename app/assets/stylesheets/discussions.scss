@@ -103,6 +103,46 @@
     margin: 1em 0;
   }
 }
+ul.attachments {
+  list-style-type: none;
+  margin: 1em 0 1em 0;
+  padding: 0;
+  li {
+    clear: both;
+    width: 220px;
+    margin: 0;
+    padding: 3px;
+    border: 2px solid rgb(255, 255, 255);
+    background-color: rgb(234, 234, 234);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px 0px;
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    vertical-align: middle;
+    line-height: 100%;
+    .preview {
+      display: inline;
+      width: 30px;
+      margin-right: 5px;
+      float: left;
+      img {
+        max-width: 30px;
+      }
+    }
+    .details {
+      display: inline;
+      max-width: 180px;
+      .file_size {
+        font-size: 80%;
+        padding-top: 3px;
+      }
+    }
+    a:link, a:active, a:visited {
+      color: rgba(0, 0, 0, 0.75);
+    }
+  }
+}
 ol.discussion_comments {
   display: block;
   list-style-type: none;

@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  MediaID: 1
+  Name: Attachment 1
+  Path: editor/ab/something.png
+  Type: image/png
+  Size: 42069
+  DateInserted: <%= 1.week.ago.to_fs(:db) %>
+  InsertUserID: 1
+  ForeignID: 1
+  ForeignTable: comment
+  ThumbPath: editor/thumb/cd/blah.jpg
+two:
+  MediaID: 2
+  Name: Attachment 2
+  Path: editor/ef/manifesto.pdf
+  Type: application/pdf
+  Size: 42069
+  DateInserted: <%= 1.week.ago.to_fs(:db) %>
+  InsertUserID: 2
+  ForeignID: 2
+  ForeignTable: comment

@@ -13,7 +13,7 @@ require 'shoulda-context'
 
 module ActiveSupport
   class TestCase
-    parallelize(workers: :number_of_processors)
+    #parallelize(workers: :number_of_processors) # some tests were causing all tests to fail with `DRb::DRbRemoteError` with parallelization enabled
     fixtures :all
   end
 end

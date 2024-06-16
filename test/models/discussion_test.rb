@@ -6,6 +6,7 @@ class DiscussionTest < ActiveSupport::TestCase
   should have_many :comments
   should have_one  :creator
   should have_one  :last_user
+  should have_many :attachments
 
   should "know if it is an announcement" do
     assert !discussions(:one).announcement?

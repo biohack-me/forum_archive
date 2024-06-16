@@ -4,6 +4,7 @@ class Comment < ApplicationRecord
 
   belongs_to :discussion, foreign_key: :DiscussionID
   has_one    :creator,    class_name: 'User', primary_key: :InsertUserID, foreign_key: :UserID
+  has_many   :attachments, -> { Attachment.active.comment }, foreign_key: :ForeignID
 
   scope :sorted, -> { order('DateInserted desc') }
   scope :search, lambda { |term|

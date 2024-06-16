@@ -1,6 +1,6 @@
 .clear.vertical_spacer
 .comment_preview
-  = link_to format_post(comment.format, comment.body, 250), discussion_path(comment.discussion.id, page: comment.discussion.comment_page(comment.id), anchor: comment.id)
+  = link_to format_post(comment.format, comment.body, [], 250), discussion_path(comment.discussion.id, page: comment.discussion.comment_page(comment.id), anchor: comment.id)
 .comment_details
   .category
     in #{link_to comment.discussion.category.name, category_path(comment.discussion.category.id)}
