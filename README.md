@@ -127,3 +127,8 @@ from your local machine.
 2. Clone your forked repository
 3. Commit your changes
 4. Open a pull request
+
+
+## Credits
+
+When no uploaded user avatar or gravatar was available, user avatars are generated using [DiceBear's Bottts](https://www.dicebear.com/styles/bottts/), which is licensed free for personal and commercial use.
