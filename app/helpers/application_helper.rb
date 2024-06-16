@@ -12,7 +12,7 @@ module ApplicationHelper
 
   def user_avatar_link_unless_private(user)
     if user.blank?
-      image_tag('sigil.png', alt: 'unknown', title: 'unknown', width: 40, height: 40, loading: 'lazy')
+      image_tag("https://api.dicebear.com/8.x/bottts/png/seed=unknown&rotate=180&baseColor=aaaaaa&eyes=dizzy&face=square01&mouth=grill03&sides=square&topProbability=0", alt: 'unknown', title: 'unknown', width: 40, height: 40, loading: 'lazy')
     else
       image = image_tag(user.photo_url, alt: user.name, title: user.name, width: 40, height: 40, loading: 'lazy')
       if user.deleted? || user.private?
