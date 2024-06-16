@@ -2,7 +2,7 @@ class Badge < ApplicationRecord
   self.table_name = 'GDN_Badge'
   self.primary_key = :BadgeID
 
-  has_many   :user_badges, foreign_key: :BadgeID
+  has_many   :user_badges, -> { UserBadge.valid_user }, foreign_key: :BadgeID
   has_many   :users,       through: :user_badges
 
   alias_attribute :name,        :Name

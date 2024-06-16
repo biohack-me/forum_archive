@@ -7,6 +7,7 @@ class UserBadge < ApplicationRecord
 
   alias_attribute :created, :DateInserted
 
-  scope :sorted, -> { order('DateInserted asc') }
+  scope :sorted,     -> { order('DateInserted asc') }
+  scope :valid_user, -> { where('UserID in (?)', User.all.collect(&:id)) }
 
 end
