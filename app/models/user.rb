@@ -15,6 +15,7 @@ class User < ApplicationRecord
     where('Name != ?', '[Deleted User]').
     order('Name asc')
   }
+  scope :active, -> { where('deleted != 1') }
 
   alias_attribute :name,            :Name
   alias_attribute :photo,           :Photo
