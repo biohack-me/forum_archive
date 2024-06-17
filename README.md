@@ -23,7 +23,7 @@ If they want to have their data removed there are three ways Vanilla did it:
 1. Keep user content - Delete the user but keep the user's content (it will show as being authored by `[Deleted User]`).
 ```mysql
 delete from GDN_UserAuthentication where UserID=<id>;
-delete from GDN_Role where UserID=<id>;
+delete from GDN_UserRole where UserID=<id>;
 delete from GDN_Invitation where InsertUserID=<id> or AcceptedUserID=<id>;
 delete from GDN_Activity where InsertUserID=<id>;
 delete from GDN_Log where RecordUserID=<id> and Operation='Pending';
@@ -34,7 +34,7 @@ update GDN_User set Name='[Deleted User]', Photo='', About='', Title='', Locatio
 2. Blank user content - Delete the user and replace all of the user's content with a message stating the user has been deleted (In addition to changing their display name to `[Deleted User]`, their discussion and comments will be replaced with `The user and all related content has been deleted.`). This gives a visual cue that there is missing information.
 ```mysql
 delete from GDN_UserAuthentication where UserID=<id>;
-delete from GDN_Role where UserID=<id>;
+delete from GDN_UserRole where UserID=<id>;
 delete from GDN_Invitation where InsertUserID=<id> or AcceptedUserID=<id>;
 delete from GDN_Activity where InsertUserID=<id>;
 delete from GDN_Log where RecordUserID=<id> and Operation='Pending';
