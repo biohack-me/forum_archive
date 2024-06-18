@@ -81,7 +81,7 @@ module DiscussionsHelper
           output << link_to(image_tag(thumb_path, alt: attachment.name, title: attachment.name, width: 30, height: 30, loading: 'lazy'), attachment_link, target: '_blank')
           output << '</div>'
           output << '<div class="details">'
-          output << link_to(attachment.name.truncate(attachment.is_image? ? 24 : 27), attachment_link, target: '_blank')
+          output << link_to(attachment.name.truncate(24), attachment_link, target: '_blank')
           output << '<div class="file_size">'
           output << number_to_human_size(attachment.size)
           output << '</div>'
