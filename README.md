@@ -4,7 +4,7 @@ This application serves as a way to view a read-only archive of the biohack.me f
 
 Once we decided to decommission these forums, it was agreed that an archive should be kept. However, keeping a copy of Vanilla running with posting disabled would still necessitate maintaining and upgrading Vanilla, which is overkill for an archive. And, making a flat HTML dump of the forum would make it so search would only work with external search engines.
 
-So, I (@tekniklr), decided to roll up a quick rails app to connect to the existing Vanilla database via a read-only connection.
+So, I ([@tekniklr](https://github.com/tekniklr/)), decided to roll up a quick rails app to connect to the existing Vanilla database via a read-only connection.
 
 If you had an account on the forums and are in the archive and wish to have either your posts anonymized or removed entirely, [email us and let us know](mailto:websiteadmins@biohack.me).
 
