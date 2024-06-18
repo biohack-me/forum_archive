@@ -31,6 +31,8 @@ delete from GDN_Activity where InsertUserID=<id>;
 delete from GDN_Log where RecordUserID=<id> and Operation='Pending';
 delete from GDN_UserCategory where UserID=<id>;
 delete from GDN_BadgeAward where UserID=<id>;
+delete from GDN_UserPoints where UserID=<id>;
+delete from GDN_Draft where InsertUserID=<id>;
 update GDN_User set Name='[Deleted User]', Photo='', About='', Title='', Location='', Password=SUBSTRING(MD5(RAND()) FROM 1 FOR 16), HashMethod='Random', About='', Email=concat('user_',UserId,'@deleted.invalid'), ShowEmail='0', Gender='u', CountVisits=0, CountInvitations=0, CountNotifications=0, InviteUserID=null, DiscoveryText='', Preferences=null, Permissions=null, Attributes=null, DateSetInvitations=null, DateOfBirth=null, DateFirstVisit=null, DateLastActive=null, DateUpdated=SYSDATE(), InsertIPAddress=null, LastIPAddress=null, HourOffset='0', Score=null, Admin=0, Points=0, Deleted=1 where UserID=<id>;
 ```
 2. Blank user content - Invalidate/anonymize the user account and negate their content with a message stating the user has been deleted (In addition to changing the content author to `[Deleted User]`, their discussion and comment content will be replaced with `The user and all related content has been deleted.`). This gives a visual cue that there is missing information.
@@ -43,8 +45,8 @@ delete from GDN_Log where RecordUserID=<id> and Operation='Pending';
 delete from GDN_UserCategory where UserID=<id>;
 delete from GDN_BadgeAward where UserID=<id>;
 delete from GDN_UserPoints where UserID=<id>;
-delete from GDN_UserDiscussion where UserID=<id>;
 delete from GDN_Draft where InsertUserID=<id>;
+delete from GDN_UserDiscussion where UserID=<id>;
 update GDN_User set Name='[Deleted User]', Photo='', About='', Title='', Location='', Password=SUBSTRING(MD5(RAND()) FROM 1 FOR 16), HashMethod='Random', About='', Email=concat('user_',UserId,'@deleted.invalid'), ShowEmail='0', Gender='u', CountVisits=0, CountInvitations=0, CountNotifications=0, InviteUserID=null, DiscoveryText='', Preferences=null, Permissions=null, Attributes=null, DateSetInvitations=null, DateOfBirth=null, DateFirstVisit=null, DateLastActive=null, DateUpdated=SYSDATE(), InsertIPAddress=null, LastIPAddress=null, HourOffset='0', Score=null, Admin=0, Points=0, Deleted=1, CountDiscussions=0, CountUnreadDiscussions=0, CountComments=0, CountDrafts=0, CountBookmarks=0 where UserID=<id>;
 update GDN_Discussion set Body="The user and all related content has been deleted.", Format="Deleted" where InsertUserID=<id>;
 update GDN_Comment set Body="The user and all related content has been deleted.", Format="Deleted" where InsertUserID=<id>;
