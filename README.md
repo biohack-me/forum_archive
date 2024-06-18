@@ -6,6 +6,8 @@ Once we decided to decommission these forums, it was agreed that an archive shou
 
 So, I (@tekniklr), decided to roll up a quick rails app to connect to the existing Vanilla database via a read-only connection.
 
+If you had an account on the forums and are in the archive and wish to have either your posts anonymized or removed entirely, [email us and let us know](mailto:websiteadmins@biohack.me).
+
 
 ## Care and feeding
 
