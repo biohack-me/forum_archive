@@ -5,6 +5,16 @@
   %p
     #{@user.name}'s profile is private
 - else
+  = content_for :meta do
+    %meta{property: 'og:site_name', content: SITE_TITLE}/
+    %meta{property: 'og:type', content: 'website'}/
+    - photo_url = @user.photo_url('big')
+    - unless photo_url =~ /\Ahttp/
+      - photo_url = asset_url(photo_url)
+    %meta{property: 'og:image', content: photo_url}/
+    %meta{property: 'og:url', content: user_url(@user.id)}/
+    %meta{property: 'og:title', content: @user.name}/
+    %meta{property: 'og:description', content: @user.about}/
   = javascript_include_tag :users
   .user_header
     .avatar{title: @user.name}

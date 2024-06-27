@@ -1,3 +1,14 @@
+= content_for :meta do
+  %meta{property: 'og:site_name', content: SITE_TITLE}/
+  %meta{property: 'og:type', content: 'website'}/
+  -unless @discussion.attachments.empty?
+    - if @discussion.attachments.first.is_image?
+      %meta{property: 'og:image', content: asset_url(@discussion.attachments.first.path)}/
+  %meta{property: 'og:url', content: discussion_url(@discussion.id, page: params[:page])}/
+  %meta{property: 'og:title', content: @page_title}/
+  %meta{property: 'og:description', content: format_post(@discussion.format, @discussion.body, [], 350)}/
+  %meta{property: 'og:article:section', content: @discussion.category.name}/
+  %meta{property: 'article:published_time', content: @discussion.created.to_formatted_s(:c)}/
 %h1
   = @page_title
 - unless (!params[:page].blank? && params[:page].to_i > 1)

@@ -4,12 +4,13 @@
     - unless @page_title.blank?
       = @page_title
       \-
-    Biohack.me forum archive
+    = SITE_TITLE
   %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}/
   = csrf_meta_tag
   = csp_meta_tag
   = stylesheet_link_tag :application, media: :all, "data-turbo-track": "reload"
   = javascript_include_tag :application
+  = yield :meta
 %body
   #container
     %header{role: 'banner'}

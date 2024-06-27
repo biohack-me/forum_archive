@@ -1,3 +1,9 @@
+= content_for :meta do
+  %meta{property: 'og:site_name', content: SITE_TITLE}/
+  %meta{property: 'og:type', content: 'website'}/
+  %meta{property: 'og:url', content: root_url}/
+  %meta{property: 'og:title', content: SITE_TITLE}/
+  %meta{property: 'og:description', content: "The biohack.me forums were originally run on Vanilla, and ran from January 2011 to July 2024. They are preserved here as a read-only archive."}/
 - if @categories.empty?
   %p
     No categories found!
