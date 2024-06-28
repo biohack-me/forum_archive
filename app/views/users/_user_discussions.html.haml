@@ -1,0 +1,4 @@
+%ol.discussions
+  - discussions.sorted.each do |discussion|
+    %li
+      = render partial: 'discussions/preview', locals: { discussion: discussion, show_author: false, show_cat: true }

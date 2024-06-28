@@ -45,10 +45,8 @@
           Discussions (#{@user.discussions.size})
         .toggle_link
           = link_to "show discussions", '#', id: "toggle_discussions"
-      %ol#user_discussions.discussions{class: 'hidden'}
-        - @user.discussions.sorted.each do |discussion|
-          %li
-            = render partial: 'discussions/preview', locals: { discussion: discussion, show_author: false, show_cat: true }
+      #user_discussions{class: 'hidden'}
+        = render partial: 'user_discussions', locals: { discussions: @user.discussions }
 
     .clear.vertical_spacer
 
@@ -58,10 +56,7 @@
           Comments (#{@user.comments.size})
         .toggle_link
           = link_to "show comments", '#', id: "toggle_comments"
-      %ol#user_comments.comments{class: 'hidden'}
-        - @user.comments.sorted.each do |comment|
-          - comment.discussion or next
-          %li
-            = render partial: 'comments/preview', locals: { comment: comment }
+      #user_comments{class: 'hidden'}
+        = render partial: 'user_comments', locals: { comments: @user.comments }
 
   .clear.vertical_spacer

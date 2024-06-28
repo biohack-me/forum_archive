@@ -1,0 +1,5 @@
+%ol.comments
+  - comments.sorted.each do |comment|
+    - comment.discussion or next
+    %li
+      = render partial: 'comments/preview', locals: { comment: comment }
