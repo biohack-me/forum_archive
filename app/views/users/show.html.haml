@@ -63,7 +63,7 @@
         .toggle_link
           = link_to "show comments", '#', id: "toggle_comments"
       #user_comments{class: 'hidden'}
-        - if @user.comments.size < 300
+        - if @user.comments.size < 150
           = render partial: 'user_comments'
         - else
           = image_tag "spinner.gif", alt: 'loading...', width: 200, height: 200
