@@ -46,7 +46,13 @@
         .toggle_link
           = link_to "show discussions", '#', id: "toggle_discussions"
       #user_discussions{class: 'hidden'}
-        = render partial: 'user_discussions', locals: { discussions: @user.discussions }
+        - if @user.discussions.size < 50
+          = render partial: 'user_discussions'
+        - else
+          = image_tag "spinner.gif", alt: 'loading...', width: 200, height: 200
+          = javascript_tag nonce: true do
+            :plain
+              $("#user_discussions").load("#{user_discussions_path(@user)}");
 
     .clear.vertical_spacer
 
@@ -57,6 +63,12 @@
         .toggle_link
           = link_to "show comments", '#', id: "toggle_comments"
       #user_comments{class: 'hidden'}
-        = render partial: 'user_comments', locals: { comments: @user.comments }
+        - if @user.comments.size < 300
+          = render partial: 'user_comments'
+        - else
+          = image_tag "spinner.gif", alt: 'loading...', width: 200, height: 200
+          = javascript_tag nonce: true do
+            :plain
+              $("#user_comments").load("#{user_comments_path(@user)}");
 
   .clear.vertical_spacer

@@ -17,6 +17,8 @@ class User < ApplicationRecord
   }
   scope :active,           -> { where('deleted != 1') }
   scope :profile_metadata, -> { includes(:roles, :user_meta, user_badges: [:badge], discussions: [:category, :creator, :last_user, :comments], comments: [:creator, discussion: [:category]]) }
+  scope :with_discussions, -> { includes(discussions: [:category, :creator, :last_user, :comments]) }
+  scope :with_comments,    -> { includes(comments: [:creator, discussion: [:category]]) }
 
   alias_attribute :name,            :Name
   alias_attribute :photo,           :Photo

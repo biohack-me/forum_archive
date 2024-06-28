@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   resources :categories,     only: [:index, :show]
   resources :discussions,    only: [:show]
   resources :search,         only: [:index]
-  resources :users,          only: [:show]
+  resources :users,          only: [:show] do
+    get     'discussions',   to: 'users#discussions', as: 'discussions'
+    get     'comments',      to: 'users#comments',    as: 'comments'
+  end
   resources :badges,         only: [:show]
   get       'tagged/(:tag)', to: 'tags#show', as: 'tag'
 
