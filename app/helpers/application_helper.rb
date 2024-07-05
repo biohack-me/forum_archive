@@ -11,10 +11,15 @@ module ApplicationHelper
   end
 
   def user_avatar_link_unless_private(user)
+    default_image_url = "https://api.dicebear.com/8.x/bottts/png/seed=unknown&rotate=180&baseColor=aaaaaa&eyes=dizzy&face=square01&mouth=grill03&sides=square&topProbability=0"
     if user.blank?
-      image_tag("https://api.dicebear.com/8.x/bottts/png/seed=unknown&rotate=180&baseColor=aaaaaa&eyes=dizzy&face=square01&mouth=grill03&sides=square&topProbability=0", alt: 'unknown', title: 'unknown', width: 40, height: 40, loading: 'lazy')
+      image_tag(default_image_url, alt: 'unknown', title: 'unknown', width: 40, height: 40, loading: 'lazy')
     else
-      image = image_tag(user.photo_url, alt: user.name, title: user.name, width: 40, height: 40, loading: 'lazy')
+      image = begin
+                image_tag(user.photo_url, alt: user.name, title: user.name, width: 40, height: 40, loading: 'lazy')
+              rescue
+                image_tag(default_image_url, alt: user.name, title: user.name, width: 40, height: 40, loading: 'lazy')
+              end
       if user.deleted? || user.private?
         image
       else
