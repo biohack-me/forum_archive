@@ -1,6 +1,6 @@
 # biohack.me forum archive
 
-This application serves as a way to view a read-only archive of the biohack.me forums, formerly run on [Vanilla](https://open.vanillaforums.com/) from January 2011 to July 2024.
+[This application](https://forum.biohack.me) serves as a way to view a read-only archive of the biohack.me forums, formerly run on [Vanilla](https://open.vanillaforums.com/) from January 2011 to July 2024.
 
 Once we decided to decommission these forums, it was agreed that an archive should be kept. However, keeping a copy of Vanilla running with posting disabled would still necessitate maintaining and upgrading Vanilla, which is overkill for an archive. And, making a flat HTML dump of the forum would make it so search would only work with external search engines.
 
