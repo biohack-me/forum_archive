@@ -13,7 +13,7 @@ If you had an account on the forums and are in the archive and wish to have eith
 
 Patreon badges and shoutouts are handled via a [cron task](https://github.com/biohack-me/Patreon-patron-sync) that talks directly to the database - no Vanilla install required. These can continue operating despite the forum being a read-only archive.
 
-When former forum users want their data updated, this may be possible directly in the database (e.g., with [phpMyAdmin](https://www.phpmyadmin.net/)).
+When former forum users want their data updated, this is possible directly in the database (e.g., with [phpMyAdmin](https://www.phpmyadmin.net/)).
 
 If they previously had their email visible on their profile and want it hidden, this can be done with:
 ```mysql
