@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  caches_action :index, :show, expires_in: 12.hours
+  caches_action :index, :show, expires_in: CACHE_TIME
 
   def index
     @categories = Category.top_level.sorted

@@ -42,7 +42,7 @@ class Discussion < ApplicationRecord
   end
 
   def tag_list
-    Rails.cache.fetch("discussion_#{id}_tags", expires_in: 12.hours, race_condition_ttl: 90.seconds) do
+    Rails.cache.fetch("discussion_#{id}_tags", expires_in: CACHE_TIME, race_condition_ttl: CACHE_TTL) do
       tags.blank? and return []
       # sometimes tags are separated by commas, sometimes by spaces, sometimes
       # comma separated tags HAVE spaces. fun for the whole family.
@@ -59,7 +59,7 @@ class Discussion < ApplicationRecord
   # will return the number of pages will_paginate will break this discussion's
   # comments into
   def num_comment_pages
-    Rails.cache.fetch("discussion_#{id}_num_pages", expires_in: 12.hours, race_condition_ttl: 90.seconds) do
+    Rails.cache.fetch("discussion_#{id}_num_pages", expires_in: CACHE_TIME, race_condition_ttl: CACHE_TTL) do
       (comments.size/PER_PAGE_MAX.to_f).ceil
     end
   end
@@ -67,7 +67,7 @@ class Discussion < ApplicationRecord
   # given a comment ID, will return the page number that comment will appear on
   # in this discussion's paginated comments
   def comment_page(comment_id)
-    Rails.cache.fetch("comment_#{comment_id}_page", expires_in: 12.hours, race_condition_ttl: 90.seconds) do
+    Rails.cache.fetch("comment_#{comment_id}_page", expires_in: CACHE_TIME, race_condition_ttl: CACHE_TTL) do
       comment_ids = comments.collect(&:id)
       index = comment_ids.find_index(comment_id.to_i)
       index.blank? and return 1

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  caches_action :show,        expires_in: 12.hours
-  caches_action :discussions, expires_in: 12.hours
-  caches_action :comments,    expires_in: 12.hours
+  caches_action :show,        expires_in: CACHE_TIME
+  caches_action :discussions, expires_in: CACHE_TIME
+  caches_action :comments,    expires_in: CACHE_TIME
 
   def show
     @user = User.profile_metadata.find(params[:id])

@@ -34,7 +34,7 @@ class User < ApplicationRecord
   alias_attribute :deleted,         :Deleted
 
   def photo_url(size = 'small')
-    Rails.cache.fetch("user_#{id}_photo_#{size}", expires_in: 12.hours, race_condition_ttl: 90.seconds) do
+    Rails.cache.fetch("user_#{id}_photo_#{size}", expires_in: CACHE_TIME, race_condition_ttl: CACHE_TTL) do
       # avatars uploaded to vanilla will be stored in GDN_User.photo as,
       #   'userpics/F2IH2KPW2RWL/GBH6RG50OK5K.png'
       # but this will expand to several files, like:
@@ -69,14 +69,14 @@ class User < ApplicationRecord
   end
 
   def private?
-    Rails.cache.fetch("user_#{id}_private", expires_in: 12.hours, race_condition_ttl: 90.seconds) do
+    Rails.cache.fetch("user_#{id}_private", expires_in: CACHE_TIME, race_condition_ttl: CACHE_TTL) do
       attributes.is_a?(Hash) or return false
       attributes['Private'] == '1'
     end
   end
 
   def deleted?
-    Rails.cache.fetch("user_#{id}_deleted", expires_in: 12.hours, race_condition_ttl: 90.seconds) do
+    Rails.cache.fetch("user_#{id}_deleted", expires_in: CACHE_TIME, race_condition_ttl: CACHE_TTL) do
       deleted == 1
     end
   end
