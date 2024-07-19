@@ -4,7 +4,7 @@
   -unless @discussion.attachments.empty?
     - if @discussion.attachments.first.is_image?
       %meta{property: 'og:image', content: asset_url(@discussion.attachments.first.path)}/
-  %meta{property: 'og:url', content: discussion_url(@discussion.id, page: params[:page])}/
+  %meta{property: 'og:url', content: discussion_url(@discussion.id, page: params[:page].to_i)}/
   %meta{property: 'og:title', content: @page_title}/
   %meta{property: 'og:description', content: format_post(@discussion.format, @discussion.body, [], 350)}/
   %meta{property: 'og:article:section', content: @discussion.category.name}/
@@ -35,7 +35,7 @@
 - unless @discussion.comments.blank?
   .clear.vertical_spacer
   %h2 Comments
-  - comments = @discussion.comments.paginate(per_page: PER_PAGE_MAX, page: params[:page])
+  - comments = @discussion.comments.paginate(per_page: PER_PAGE_MAX, page: params[:page].to_i)
   .pagination_container
     .page_info
       = page_entries_info comments, entry_name: 'comment'
