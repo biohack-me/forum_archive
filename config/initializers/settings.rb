@@ -8,4 +8,4 @@ PER_PAGE_MAX = 30
 # race conditions (see: https://github.com/rails/rails/pull/44151 and
 # https://api.rubyonrails.org/classes/ActiveSupport/Cache/Store.html#method-i-fetch )
 CACHE_TIME = 12.hours
-CACHE_TTL  = 90.seconds
+CACHE_TTL  = 3.minutes
