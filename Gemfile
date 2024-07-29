@@ -35,3 +35,6 @@ group :development do
   gem 'brakeman',           require: false
   gem 'faker',              require: false
 end
+
+# FIXME: needed on ruby 3.3.3 ( https://github.com/ruby/net-pop/issues/26#issuecomment-2176572171 )
+gem 'net-pop', github: 'ruby/net-pop'
