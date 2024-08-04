@@ -101,6 +101,7 @@ Rails.application.configure do
                           'ActionController::InvalidCrossOriginRequest',
                           'Mime::Type::InvalidMimeType'
                         ] + ExceptionNotifier.ignored_exceptions,
+    ignore_if: ->(env, exception) { exception.message =~ /^No such file or directory @ rb_file_s_rename/ },
     ignore_crawlers:    %w{Uptimebot},
     email: {
       email_prefix:          "[biohack.me forum archive] ",
