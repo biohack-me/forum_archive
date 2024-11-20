@@ -5,10 +5,22 @@ class ApplicationController < ActionController::Base
 
   def routing_error
     logger.warn "************ unknown path requested: #{params[:p]}"
-    respond_to do |format|
-      format.html { render '404', status: 404 }
-      format.any  { redirect_to action: 'routing_error', format: 'html' }
+    begin
+      respond_to do |format|
+        format.html { render '404', status: 404 }
+      end
+    rescue
+      return redirect_to controller: 'application', action: 'bad_format_routing_error', format: :html
     end
+  end
+
+  # the old redirect in routing_error, above, was passing additional params
+  # along that was causing additional routing errors.
+  # e.g., the path '/discussions/feed.rss' would try to route to
+  # `{:action=>"routing_error", :controller=>"discussions", :format=>"html", :id=>"feed"}`,
+  # and the :id didn't match any route (even after correcting controller name)
+  def bad_format_routing_error
+    redirect_to action: 'routing_error', format: 'html'
   end
 
 end
