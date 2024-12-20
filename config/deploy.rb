@@ -21,3 +21,16 @@ set :puma_init_active_record, true
 set :puma_systemctl_bin, '/usr/bin/systemctl'
 set :puma_service_unit_name, "puma"
 set :puma_systemctl_user, :user
+
+namespace :cache do
+  task :clear do
+    on roles(:app) do |host|
+      with rails_env: fetch(:rails_env) do
+        within current_path do
+          execute :bundle, :exec, "rake cache:clear"
+        end
+      end
+    end
+  end
+end
+after 'deploy:restart', 'cache:clear'
