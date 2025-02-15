@@ -46,7 +46,7 @@ class User < ApplicationRecord
       # filename, otherwise prepent 'p'
       if (photo =~ /\Auserpics\//)
         prefix = (size == 'small') ? 'n' : 'p'
-        photo.gsub(/\/(\w+\.[A-z]{3,4})\z/, "/#{prefix}"+'\1')
+        photo.gsub(/\/(\w+\.[A-Za-z]{3,4})\z/, "/#{prefix}"+'\1')
 
       # if the photo is to an external URL, it will work or it won't
       elsif (photo =~ /\Ahttps?:\/\//)

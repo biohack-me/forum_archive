@@ -17,12 +17,12 @@ module DiscussionsHelper
   def format_post(format, raw_content, attachments, truncate = false)
     content = raw_content
     # any links to other forum posts need to be updated
-    content.gsub!(/https:\/\/forum.biohack.me\/index.php\?p=\/discussion\/([0-9]+)\/[-_0-9A-z]+/) do |match|
+    content.gsub!(/https:\/\/forum.biohack.me\/index.php\?p=\/discussion\/([0-9]+)\/[-_0-9A-Za-z]+/) do |match|
       discussion_id = $1
       discussion_path(discussion_id, page: 1)
     end
     # ditto any links to uploaded forum media
-    content.gsub!(/https:\/\/forum.biohack.me\/uploads\/editor\/([-_\/.A-z0-9]*)/) do |match|
+    content.gsub!(/https:\/\/forum.biohack.me\/uploads\/editor\/([-_\/.A-Za-z0-9]*)/) do |match|
       image_path = $1
       image_path("uploads/#{image_path}")
     end
@@ -50,7 +50,7 @@ module DiscussionsHelper
     end
     # auto link @usernames
     begin
-      output.gsub!(/@([-_A-z0-9]+)/) do |match|
+      output.gsub!(/@([-_A-Za-z0-9]+)/) do |match|
         username = $1
         disp_username = "@#{username}"
         user = User.where(name: username).first
