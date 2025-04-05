@@ -10,6 +10,7 @@ gem 'sprockets-rails'
 gem 'redcarpet'
 gem 'rails_autolink'
 gem 'jquery-rails'
+gem 'terser'
 gem 'actionpack-action_caching'
 gem 'will_paginate'
 
@@ -21,7 +22,6 @@ end
 
 group :production do
   gem 'exception_notification'
-  gem 'mini_racer'
 end
 
 group :development do
