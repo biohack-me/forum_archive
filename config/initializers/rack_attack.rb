@@ -31,20 +31,3 @@ ActiveSupport::Notifications.subscribe("throttle.rack_attack") do |name, start, 
     Rails.logger.warn "************ Vanilla URL redirect rate limit exceeded!\n************\tpath: #{req.path}\n************\tquery: #{req.params}"
   end
 end
-
-# Block suspicious requests
-# After 2 blocked requests in 10 minutes, block all requests from that IP for
-# 1 hour.
-Rack::Attack.blocklist('fail2ban shenanigans') do |req|
-  Rack::Attack::Fail2Ban.filter("tomfoolery-#{req.ip}", maxretry: 2, findtime: 10.minutes, bantime: 3.hours) do
-    req.path.include?('wp-admin') ||
-    req.path.include?('wp-login')
-  end
-end
-
-# Actually block people who keep going to index.php URLs past the throttling
-Rack::Attack.blocklist('fail2ban index.php') do |req|
-  Rack::Attack::Allow2Ban.filter("indexers-#{req.ip}", maxretry: 5, findtime: 3.minutes, bantime: 3.hours) do
-    req.path.include?('bad_route')
-  end
-end
