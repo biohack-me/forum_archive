@@ -3,7 +3,7 @@ class Rack::Attack
   ### Throttle config (prevents user for getting further responses) ###
 
   # prevent people/bots from hitting all the moved vanilla URLs overly quickly
-  throttle('redirect_throttling', limit: 15, period: 1.minute) do |req|
+  throttle('redirect_throttling', limit: 5, period: 1.minute) do |req|
     if (req.path =~ /index.php/) 
       req.ip
     end
