@@ -39,6 +39,22 @@ class RedirectController < ApplicationController
         end
       end
 
+      # looking for comment?
+      if !not_found && (params[:p] =~ /\A\/discussion\/comment\/([0-9]+)\/?/)
+        logger.debug "************ a comment!"
+        comment_id = $1
+        comment = Comment.where('CommentID = ?', comment_id).first
+        discussion = comment.discussion
+        if !comment.blank? && !discussion.blank?
+          logger.debug "************ redirecting to #{discussion.name}..."
+          comment_page = discussion.comment_page(comment_id)
+          redirect_path = discussion_path(discussion, page: comment_page, anchor: comment_id)
+        else
+          logger.debug "************ but no discussion for comment with id '#{comment_id}' was found..."
+          not_found = true
+        end
+      end
+
       # looking for user profile?
       if !not_found && (params[:p] =~ /\A\/profile\/(\w+)/)
         logger.debug "************ a user profile!"
