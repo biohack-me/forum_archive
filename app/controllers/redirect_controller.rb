@@ -44,7 +44,7 @@ class RedirectController < ApplicationController
         logger.debug "************ a comment!"
         comment_id = $1
         comment = Comment.where('CommentID = ?', comment_id).first
-        discussion = comment.discussion
+        discussion = comment ? comment.discussion : nil
         if !comment.blank? && !discussion.blank?
           logger.debug "************ redirecting to #{discussion.name}..."
           comment_page = discussion.comment_page(comment_id)
