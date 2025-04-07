@@ -37,7 +37,6 @@ end
 # 1 hour.
 Rack::Attack.blocklist('fail2ban shenanigans') do |req|
   Rack::Attack::Fail2Ban.filter("tomfoolery-#{req.ip}", maxretry: 2, findtime: 10.minutes, bantime: 3.hours) do
-    req.path.include?('bad_route.html') ||
     req.path.include?('wp-admin') ||
     req.path.include?('wp-login')
   end
