@@ -44,12 +44,7 @@ end
 
 # Actually block people who keep going to index.php URLs past the throttling
 Rack::Attack.blocklist('fail2ban index.php') do |req|
-  Rack::Attack::Allow2Ban.filter("indexers-#{req.ip}", maxretry: 10, findtime: 3.minutes, bantime: 3.hours) do
-    req.path.include?('index.php')
-  end
-end
-Rack::Attack.blocklist('fail2ban profiles') do |req|
-  Rack::Attack::Allow2Ban.filter("profilers-#{req.ip}", maxretry: 5, findtime: 3.minutes, bantime: 3.hours) do
-    CGI.unescape(req.query_string) =~ %r{/profile/}
+  Rack::Attack::Allow2Ban.filter("indexers-#{req.ip}", maxretry: 5, findtime: 3.minutes, bantime: 3.hours) do
+    req.path.include?('bad_route')
   end
 end
