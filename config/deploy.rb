@@ -1,7 +1,7 @@
 set :application, 'forum_archive'
 set :repo_url,  "https://github.com/biohack-me/forum_archive"
 set :linked_files, %w{config/master.key config/credentials.yml.enc config/database.yml}
-set :linked_dirs, %w{app/assets/images/userpics app/assets/images/uploads tmp/pids tmp/sockets log}
+set :linked_dirs, %w{app/assets/images/userpics app/assets/images/uploads tmp/pids tmp/sockets tmp/cache log}
 set :keep_releases, 6
 set :tmp_dir, "/home/biohack_vps/tmp"
 set :rvm_type, :user
