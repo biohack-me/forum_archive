@@ -28,6 +28,6 @@ end
 ActiveSupport::Notifications.subscribe("throttle.rack_attack") do |name, start, finish, request_id, payload|
   req = payload[:request]
   if req.env['rack.attack.matched'] == "redirect_throttling"
-    Rails.logger.warn "************ Vanilla URL redirect rate limit exceeded!\n************\tip: #{req.ip}\n************\tpath: #{req.path}\n************\tquery: #{req.params}"
+    Rails.logger.warn "************ Vanilla URL redirect rate limit exceeded!\n************\tpath: #{req.path}\n************\tquery: #{req.params}"
   end
 end
