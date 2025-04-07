@@ -13,6 +13,7 @@ gem 'jquery-rails'
 gem 'terser'
 gem 'actionpack-action_caching'
 gem 'will_paginate'
+gem 'rack-attack'
 
 group :test do
   gem 'minitest',                require: false
