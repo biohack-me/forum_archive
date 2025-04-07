@@ -51,7 +51,15 @@ end
 
 # Actually block people who keep going to index.php URLs past the throttling
 Rack::Attack.blocklist('fail2ban index.php') do |req|
-  Rack::Attack::Allow2Ban.filter("indexers-#{req.remote_ip}", maxretry: 5, findtime: 3.minutes, bantime: 3.hours) do
+  Rack::Attack::Allow2Ban.filter("indexers-#{req.remote_ip}", maxretry: 10, findtime: 3.minutes, bantime: 3.hours) do
+    req.path.include?('index.php')
+  end
+end
+
+# a lot of bots explicity requesting /bad_route.html, which is maybe a browser
+# fuckup, but also stop 404ing
+Rack::Attack.blocklist('fail2ban bad routers') do |req|
+  Rack::Attack::Allow2Ban.filter("routers-#{req.remote_ip}", maxretry: 5, findtime: 3.minutes, bantime: 3.hours) do
     req.path.include?('bad_route.html')
   end
 end
