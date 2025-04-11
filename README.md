@@ -57,6 +57,8 @@ Obviously, if other users mention a deleted user by name or quote their content 
 
 See the Vanilla source code([1](https://github.com/vanilla/vanilla/blob/2a966a61d9acd6dfdfc78510b4f2387b36756649/applications/dashboard/models/class.usermodel.php#L5325-L5464),[2](https://github.com/vanilla/vanilla/blob/2a966a61d9acd6dfdfc78510b4f2387b36756649/applications/vanilla/settings/class.hooks.php#L128-L256)) for more details on how vanilla handled deleting users, which is what the SQL above is based on.
 
+After a user's content has been deleted from the database, it will likely sill show up on the website until the rails cache expires (see `CACHE_TIME` in `config/initializers/settings.rb`). To immediately clear all cached items, SSH into the server, open a rails console (cd into the `forum_archive/current` directory and run `bin/rails c -e production`), and run `Rails.cache.clear`.
+
 
 ## Development
 
