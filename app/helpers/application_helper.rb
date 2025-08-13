@@ -4,9 +4,9 @@ module ApplicationHelper
   # as 'Month Year'
   def date_disp(date)
     if date > Date.today-1.year
-      date.to_formatted_s(:month_day)
+      date.to_fs(:month_day)
     else
-      date.to_formatted_s(:month_year)
+      date.to_fs(:month_year)
     end
   end
 
