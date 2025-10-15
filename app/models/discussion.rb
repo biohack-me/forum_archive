@@ -17,7 +17,7 @@ class Discussion < ApplicationRecord
     where('Body != ?', 'The user and all related content has been deleted.')
   }
   scope :tagged, lambda { |tag|
-    where('UPPER(Tags) like ?', "%#{tag.upcase}%")
+    where('UPPER(Tags) like ?', "%#{tag.to_s.upcase}%")
   }
 
   alias_attribute :name,            :Name
@@ -43,16 +43,31 @@ class Discussion < ApplicationRecord
 
   def tag_list
     Rails.cache.fetch("discussion_#{id}_tags", expires_in: CACHE_TIME, race_condition_ttl: CACHE_TTL) do
-      tags.blank? and return []
-      # sometimes tags are separated by commas, sometimes by spaces, sometimes
-      # comma separated tags HAVE spaces. fun for the whole family.
       tag_list = []
+      tags.blank? and return tag_list
+      # sometimes tags are separated by commas, sometimes by spaces, sometimes
+      # comma separated tags HAVE spaces.
+      # additionally, most tags are strings, but some tags are integers that
+      # point at a Tag object.
+      # fun for the whole family.
+      raw_tag_list = []
       if tags =~ /,/
-        tag_list = tags.split(',')
+        raw_tag_list = tags.split(',')
       else
-        tag_list = tags.split(/\s/)
+        raw_tag_list = tags.split(/\s/)
       end
-      tag_list.collect{|t| t.squish}.reject{|t| t.blank?}
+      raw_tag_list.each do |t|
+        t.squish!
+        t.blank? and next
+        if t =~ /\A[0-9]+\z/
+          tag_name = Tag.find_by(TagId: t)
+          tag_name.blank? and next
+          tag_list << tag_name.full_name
+        else
+          tag_list << t
+        end
+      end
+      tag_list
     end
   end
 

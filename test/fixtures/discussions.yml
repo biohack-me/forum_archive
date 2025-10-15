@@ -33,7 +33,7 @@ two:
   DateInserted: <%= 1.week.ago.to_fs(:db) %>
   Announce: 1
   Closed: 0
-  Tags: thing3  thing4 
+  Tags: thing3  thing4 1
 three:
   DiscussionID: 3
   CategoryID: 2

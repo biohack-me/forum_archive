@@ -4,7 +4,9 @@ class TagsController < ApplicationController
   def show
      @results = []
     if params[:tag] && !params[:tag].empty?
-      @results = Discussion.tagged(params[:tag]).sorted
+      tag_object = Tag.by_name(params[:tag]).first
+      search_tag = tag_object.blank? ? params[:tag] : tag_object.id
+      @results = Discussion.tagged(search_tag).sorted
     end
   end
 

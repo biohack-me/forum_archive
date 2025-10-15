@@ -22,7 +22,7 @@ class DiscussionTest < ActiveSupport::TestCase
 
   should "convert tags to array" do
     assert_equal ['thing1','thing2 with a space'], discussions(:one).tag_list
-    assert_equal ['thing3','thing4'], discussions(:two).tag_list
+    assert_equal ['thing3','thing4', 'Tag one'], discussions(:two).tag_list
     assert_equal [],                  discussions(:three).tag_list
   end
 
