@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem 'rails', '~>8.0.0'
+gem 'rails', '~>8.1.0'
 gem 'mysql2'
 gem 'puma'
 
@@ -36,6 +36,3 @@ group :development do
   gem 'brakeman',           require: false
   gem 'faker',              require: false
 end
-
-# FIXME: needed on ruby 3.3.3 ( https://github.com/ruby/net-pop/issues/26#issuecomment-2176572171 )
-gem 'net-pop', github: 'ruby/net-pop'
