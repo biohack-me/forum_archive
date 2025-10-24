@@ -24,7 +24,8 @@
     .last_comment
       Most recent by #{user_link_unless_private(discussion.last_user)}
       - if !discussion.last_posted.blank?
-        on #{link_to date_disp(discussion.last_posted), discussion_path(discussion.id, page: discussion.num_comment_pages, anchor: discussion.last_comment_id)}
+        = (discussion.last_posted > Date.today-1.year) ? 'on ' : 'in '
+        = link_to date_disp(discussion.last_posted), discussion_path(discussion.id, page: discussion.num_comment_pages, anchor: discussion.last_comment_id)
   - if show_cat
     .category
       = link_to discussion.category.name, category_path(discussion.category.id)
