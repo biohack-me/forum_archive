@@ -31,7 +31,7 @@
             = link_to 'Privacy Policy', 'https://biohack.me/privacy/'
           %li
             = form_tag search_index_path, method: 'get', role: 'search' do
-              = text_field_tag :s, nil, autocomplete: 'off', placeholder: 'Search archive'
+              = text_field_tag :s, nil, autocomplete: 'off', title: 'Search archive', placeholder: 'Search archive'
       #main{role: 'main'}
         %p
           The biohack.me forums were originally run on #{link_to 'Vanilla', 'https://open.vanillaforums.com/'} and ran from January 2011 to July 2024. #{link_to 'They are preserved here as a read-only archive', 'https://github.com/biohack-me/forum_archive'}.
