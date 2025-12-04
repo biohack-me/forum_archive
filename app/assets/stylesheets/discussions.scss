@@ -30,7 +30,7 @@
         border: none;
         font-size: 75%;
         padding: .25em !important;
-        background-color: rgb(119, 119, 119);
+        background-color: #575757;
         color: rgb(255, 255, 255);
       }
     }
@@ -38,10 +38,10 @@
   .author, .views, .comments, .last_comment, .date, .category {
     display: inline;
     font-size: 75%;
-    color: rgb(204, 204, 204);
+    color: #4F4F4F;
     padding: 0 1.5em 0 0;
     a:link, a:active, a:visited {
-      color: rgb(204, 204, 204);
+      color: #4F4F4F;
     }
   }
 }
@@ -70,11 +70,11 @@
   .date_posted, .date_edited, .category {
     display: inline;
     font-size: 75%;
-    color: rgb(204, 204, 204);
+    color: #4F4F4F;
     margin: 0;
     padding: 0 1.5em 0 0em;
     a:link, a:active, a:visited {
-      color: rgb(204, 204, 204);
+      color: #4F4F4F;
     }
   }
 }
@@ -115,7 +115,7 @@ ul.attachments {
     border: 2px solid rgb(255, 255, 255);
     background-color: rgb(234, 234, 234);
     box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px 0px;
-    color: rgb(153, 153, 153);
+    color: #737373;
     font-size: 12px;
     overflow-x: hidden;
     overflow-y: hidden;

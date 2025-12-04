@@ -14,7 +14,7 @@ ol#category_list {
   font-size: 175%;
   padding: 1em 0 .5em 0;
   a:link, a:active, a:visited {
-    color: rgb(153, 153, 153);
+    color: #737373;
   }
 }
 .category_description {
@@ -22,7 +22,7 @@ ol#category_list {
   width: 74%;
   vertical-align: bottom;
   text-align: left;
-  color: rgb(136, 136, 136);
+  color: #575757;
 }
 .category_counts {
   display: inline-block;
@@ -31,7 +31,7 @@ ol#category_list {
   text-align: right;
   font-size: 80%;
   font-style: italic;
-  color: rgb(136, 136, 136);
+  color: #575757;
 }
 @media screen and (min-width: 550px) {
   /* desktop layout */
@@ -76,6 +76,6 @@ ol.discussions {
 .more {
   text-align: right;
   a:link, a:active, a:visited {
-    color: rgb(153, 153, 153);
+    color: #737373;
   }
 }
