@@ -1,46 +1,47 @@
 !!! 5
-%head
-  %title
-    - unless @page_title.blank?
-      = @page_title
-      \-
-    = SITE_TITLE
-  %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}/
-  = csrf_meta_tag
-  = csp_meta_tag
-  = stylesheet_link_tag :application, media: :all, "data-turbo-track": "reload"
-  = javascript_include_tag :application
-  = yield :meta
-%body
-  #container
-    %header{role: 'banner'}
-      = link_to image_tag("sigil.png", alt: 'biohack.me', width: 75, height: 73), 'https://biohack.me'
-    %nav{role: 'navigation'}
-      %ul.mobile
-        %li
-          %a#toggle_navigation{href: '#'} Navigation
-      %ul.navigation
-        %li
-          = link_to 'Discussion categories', root_url
-        %li
-          = link_to 'Patreon', 'https://www.patreon.com/biohack'
-        %li
-          = link_to 'Code of Conduct', 'https://biohack.me/code_of_conduct/'
-        %li
-          = link_to 'Privacy Policy', 'https://biohack.me/privacy/'
-        %li
-          = form_tag search_index_path, method: 'get', role: 'search' do
-            = text_field_tag :s, nil, autocomplete: 'off', placeholder: 'Search archive'
-    #main{role: 'main'}
-      %p
-        The biohack.me forums were originally run on #{link_to 'Vanilla', 'https://open.vanillaforums.com/'} and ran from January 2011 to July 2024. #{link_to 'They are preserved here as a read-only archive', 'https://github.com/biohack-me/forum_archive'}.
-        If you had an account on the forums and are in the archive and wish to have either your posts anonymized or removed entirely, #{mail_to 'websiteadmins@biohack.me', 'email us and let us know'}.
-      %p
-        - patreon_discussion = Discussion.find(2567)
-        While we are no longer running Vanilla, #{link_to 'Patreon', 'https://www.patreon.com/biohack'} badges are still being awarded, and #{link_to 'shoutout forum posts', discussion_path(patreon_discussion.id, page: patreon_discussion.num_comment_pages, anchor: patreon_discussion.last_comment_id)} are being created, because this is done directly in the database via an #{link_to 'automated task', 'https://github.com/biohack-me/Patreon-patron-sync'}.
-      %a{name: 'skipNav'}
-      = yield
-      %a{name: 'pageBottom'}
-    %footer{role: 'contentinfo'}
-      .center
-        #{link_to 'view on github', 'https://github.com/biohack-me/forum_archive'}
+%html{lang: 'en'}
+  %head
+    %title
+      - unless @page_title.blank?
+        = @page_title
+        \-
+      = SITE_TITLE
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}/
+    = csrf_meta_tag
+    = csp_meta_tag
+    = stylesheet_link_tag :application, media: :all, "data-turbo-track": "reload"
+    = javascript_include_tag :application
+    = yield :meta
+  %body
+    #container
+      %header{role: 'banner'}
+        = link_to image_tag("sigil.png", alt: 'biohack.me', width: 75, height: 73), 'https://biohack.me'
+      %nav{role: 'navigation'}
+        %ul.mobile
+          %li
+            %a#toggle_navigation{href: '#'} Navigation
+        %ul.navigation
+          %li
+            = link_to 'Discussion categories', root_url
+          %li
+            = link_to 'Patreon', 'https://www.patreon.com/biohack'
+          %li
+            = link_to 'Code of Conduct', 'https://biohack.me/code_of_conduct/'
+          %li
+            = link_to 'Privacy Policy', 'https://biohack.me/privacy/'
+          %li
+            = form_tag search_index_path, method: 'get', role: 'search' do
+              = text_field_tag :s, nil, autocomplete: 'off', placeholder: 'Search archive'
+      #main{role: 'main'}
+        %p
+          The biohack.me forums were originally run on #{link_to 'Vanilla', 'https://open.vanillaforums.com/'} and ran from January 2011 to July 2024. #{link_to 'They are preserved here as a read-only archive', 'https://github.com/biohack-me/forum_archive'}.
+          If you had an account on the forums and are in the archive and wish to have either your posts anonymized or removed entirely, #{mail_to 'websiteadmins@biohack.me', 'email us and let us know'}.
+        %p
+          - patreon_discussion = Discussion.find(2567)
+          While we are no longer running Vanilla, #{link_to 'Patreon', 'https://www.patreon.com/biohack'} badges are still being awarded, and #{link_to 'shoutout forum posts', discussion_path(patreon_discussion.id, page: patreon_discussion.num_comment_pages, anchor: patreon_discussion.last_comment_id)} are being created, because this is done directly in the database via an #{link_to 'automated task', 'https://github.com/biohack-me/Patreon-patron-sync'}.
+        %a{name: 'skipNav'}
+        = yield
+        %a{name: 'pageBottom'}
+      %footer{role: 'contentinfo'}
+        .center
+          #{link_to 'view on github', 'https://github.com/biohack-me/forum_archive'}
