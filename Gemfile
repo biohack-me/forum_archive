@@ -5,6 +5,7 @@ gem 'mysql2'
 gem 'puma'
 
 gem 'haml'
+gem 'haml-rails'
 gem 'sassc-rails'
 gem 'sprockets-rails'
 gem 'redcarpet'
