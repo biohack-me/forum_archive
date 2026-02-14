@@ -45,3 +45,5 @@
 # for each deploy
 app/assets/images/userpics/*
 app/assets/images/uploads/*
+/app/assets/builds/*
+!/app/assets/builds/.keep

@@ -107,9 +107,9 @@ If all went well, you can run our (minimal) tests with:
 rails db:test:prepare
 rails test
 ```
-And start up a local server with:
+And start up a local server, compiling dartsass on as it is edited, with:
 ```bash
-rails s
+bin/dev
 ```
 The development site should now be available at http://localhost:3000.
 

@@ -6,7 +6,7 @@ gem 'puma'
 
 gem 'haml'
 gem 'haml-rails'
-gem 'sassc-rails'
+gem "dartsass-rails"
 gem 'sprockets-rails'
 gem 'redcarpet'
 gem 'rails_autolink'
