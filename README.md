@@ -62,11 +62,14 @@ After a user's content has been deleted from the database, it will likely sill s
 
 ## Development
 
-You will need ruby and MySQL set up on your local development machine.
-
-After cloning this repository, run:
+You will need ruby and MySQL set up on your local development machine. Instructions for how to install those in your environment are out of the scope of this README. Once you have the [correct version of ruby](https://github.com/biohack-me/forum_archive/blob/main/.ruby-version) set up, install some necessary gems:
 ```bash
 gem install bundler
+gem install foreman
+```
+
+And clone this repository (or a fork of this repository) and cd into the resulting project directory and run:
+```bash
 bundle install
 ```
 
