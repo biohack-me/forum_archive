@@ -34,6 +34,10 @@ class RedirectController < ApplicationController
         logger.debug "************* but no target - redirecting to root"
         return redirect_to root_path
       end
+    elsif params[:p] !~ /\A\/(categories|discussion|profile)\//
+      logger.debug "************* not something we understand how to redirect to... likely shenanigans."
+      not_found = true
+      cache_path = '404'
     else
       logger.debug "************* passing on to cached redirect work..."
       cache_path = params[:p]
