@@ -14,6 +14,8 @@ class RedirectController < ApplicationController
     elsif ['/entry/register'].include?(params[:p])
       # checking params[:p] against an array so we can add additional redirect
       # paths to it if/when they surface
+      logger.debug "************* redirecting from vanilla native redirect path..."
+
       if !params[:Target].blank?
         if (params[:Target] =~ /\Ahttps:\/\/forum.biohack.me\/index.php\?p=(.*)/) # it redirected to a whole ass URL
           target = $1
@@ -29,10 +31,11 @@ class RedirectController < ApplicationController
           return redirect_to redirect_path(p: target)
         end
       else
-        logger.debug "************* registration page with no target - redirect to root"
+        logger.debug "************* but no target - redirecting to root"
         return redirect_to root_path
       end
     else
+      logger.debug "************* passing on to cached redirect work..."
       cache_path = params[:p]
     end
 
