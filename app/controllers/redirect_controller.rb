@@ -1,15 +1,43 @@
 class RedirectController < ApplicationController
 
   def redirect
+    logger.debug "************ figuring out where to redirect #{params[:p]} to..."
+    redirect_path = false
+    not_found = false
+
+    # decide what we are caching outside the cached part, to cut down on
+    # caching garbage and duplicate links
+    if params[:p].blank?
+      logger.debug "************* redirecting to nothing accomplished."
+      not_found = true
+      cache_path = '404'
+    elsif ['/entry/register'].include?(params[:p])
+      # checking params[:p] against an array so we can add additional redirect
+      # paths to it if/when they surface
+      if !params[:Target].blank?
+        if (params[:Target] =~ /\Ahttps:\/\/forum.biohack.me\/index.php\?p=(.*)/) # it redirected to a whole ass URL
+          target = $1
+        elsif (params[:Target] =~ /\Ahttp/)
+          logger.debug "************* calling shenanigans."
+          not_found = true
+          cache_path = '404'
+        else
+          target = '/'+params[:Target] 
+        end
+        if target
+          logger.debug "************* redirecting to redirect link for #{target}..."
+          return redirect_to redirect_path(p: target)
+        end
+      else
+        logger.debug "************* registration page with no target - redirect to root"
+        return redirect_to root_path
+      end
+    else
+      cache_path = params[:p]
+    end
 
     # cache each set of params so we only do the logic once
     redirect_action = Rails.cache.fetch("redirect_for_#{params[:p]}") do
-      redirect_path = false
-      not_found = false
-
-      params[:p].blank? and not_found = true
-
-      logger.debug "************ figuring out where to redirect #{params[:p]} to..."
 
       # looking for category?
       if !not_found && (params[:p] =~ /\A\/categories\/(\w+)/)

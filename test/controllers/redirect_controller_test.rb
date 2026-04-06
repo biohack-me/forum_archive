@@ -7,6 +7,17 @@ class RedirectControllerTest < ActionController::TestCase
     assert_template 'application/404'
   end
 
+  should "redirect again if this was a possibly cromulent vanilla redirect" do
+    get :redirect, params: { p: '/entry/register' }
+    assert_redirected_to root_path
+    get :redirect, params: { p: '/entry/register', Target: 'categories/announcements' }
+    assert_redirected_to redirect_path(p: '/categories/announcements')
+    get :redirect, params: { p: '/entry/register', Target: 'https://forum.biohack.me/index.php?p=categories/announcements' }
+    assert_redirected_to redirect_path(p: 'categories/announcements')
+    get :redirect, params: { p: '/entry/register', Target: 'https://google.com' }
+    assert_template 'application/404'
+  end
+
   should "get redirected to category when appropriate" do
     get :redirect, params: { p: '/categories/announcements' }
     assert_response :moved_permanently
