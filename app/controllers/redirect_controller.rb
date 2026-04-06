@@ -44,7 +44,7 @@ class RedirectController < ApplicationController
     end
 
     # cache each set of params so we only do the logic once
-    redirect_action = Rails.cache.fetch("redirect_for_#{params[:p]}") do
+    redirect_action = Rails.cache.fetch("redirect_for_#{cache_path}") do
 
       # looking for category?
       if !not_found && (params[:p] =~ /\A\/categories\/(\w+)/)
