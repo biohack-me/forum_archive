@@ -21,14 +21,16 @@ class RedirectController < ApplicationController
           target = $1
         elsif (params[:Target] =~ /\Ahttp/)
           logger.debug "************* calling shenanigans."
-          not_found = true
-          cache_path = '404'
+          target = false
         else
           target = '/'+params[:Target] 
         end
         if target
           logger.debug "************* redirecting to redirect link for #{target}..."
           return redirect_to redirect_path(p: target)
+        else
+          not_found = true
+          cache_path = '404'
         end
       else
         logger.debug "************* but no target - redirecting to root"
