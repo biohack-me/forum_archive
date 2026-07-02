@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-  caches_action :show,        expires_in: CACHE_TIME, race_condition_ttl: CACHE_TTL
-  caches_action :discussions, expires_in: CACHE_TIME, race_condition_ttl: CACHE_TTL
-  caches_action :comments,    expires_in: CACHE_TIME, race_condition_ttl: CACHE_TTL
 
   def show
     @user = User.profile_metadata.find(params[:id])
