@@ -1,6 +1,8 @@
-%ol.comments
-  - @user.comments.sorted.each do |comment|
-    - cache comment do
-      - comment.discussion or next
-      %li
-        = render partial: 'comments/preview', locals: { comment: comment }
+- @user_c ||= @user
+- cache @user_c do
+  %ol.comments
+    - @user_c.comments.sorted.each do |comment|
+      - cache comment do
+        - comment.discussion or next
+        %li
+          = render partial: 'comments/preview', locals: { comment: comment }

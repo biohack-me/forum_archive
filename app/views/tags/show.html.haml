@@ -1,13 +1,14 @@
-- if @results.empty?
-  %p
-    Nothing tagged with <strong>#{params[:tag]}</strong>.
-- else
-  %h2
-    #{pluralize @results.size, 'discussion'} tagged with '#{params[:tag]}'
-  .tag_results
-    %ol.discussions
-      - @results.each do |result|
-        - cache result do
-          %li
-            - if result.is_a?(Discussion)
-              = render partial: 'discussions/preview', locals: { discussion: result, show_author: true, show_cat: true }
+- cache @results do
+  - if @results.empty?
+    %p
+      Nothing tagged with <strong>#{params[:tag]}</strong>.
+  - else
+    %h2
+      #{pluralize @results.size, 'discussion'} tagged with '#{params[:tag]}'
+    .tag_results
+      %ol.discussions
+        - @results.each do |result|
+          - cache result do
+            %li
+              - if result.is_a?(Discussion)
+                = render partial: 'discussions/preview', locals: { discussion: result, show_author: true, show_cat: true }

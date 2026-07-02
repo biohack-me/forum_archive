@@ -1,76 +1,77 @@
-= content_for :meta do
-  %meta{property: 'og:site_name', content: SITE_TITLE}/
-  %meta{property: 'og:type', content: 'website'}/
-  -unless @discussion.attachments.empty?
-    - if @discussion.attachments.first.is_image?
-      %meta{property: 'og:image', content: asset_url(@discussion.attachments.first.path)}/
-  %meta{property: 'og:url', content: discussion_url(@discussion.id, page: params[:page].to_i)}/
-  %meta{property: 'og:title', content: @page_title}/
-  %meta{property: 'og:description', content: format_post(@discussion.format, @discussion.body, [], 350)}/
-  %meta{property: 'og:article:section', content: @discussion.category.name}/
-  %meta{property: 'article:published_time', content: @discussion.created.to_fs(:c)}/
-%h1
-  = @page_title
-- unless (!params[:page].blank? && params[:page].to_i > 1)
-  - cache @discussion do
-    .discussion_post
-      = render partial: 'users/author', locals: { user: @discussion.creator }
-      .post_metadata
-        .date_posted
-          = date_disp(@discussion.created)
-        - if @discussion.updated
-          .date_edited
-            edited #{date_disp(@discussion.updated)}
-        .category
-          in #{link_to @discussion.category.name, category_path(@discussion.category.id)}
-      .post_body
-        = format_post @discussion.format, @discussion.body, @discussion.attachments
-      - unless @discussion.tag_list.empty?
-        .post_tags
-          Tagged:
-          - tag_links = []
-          -  @discussion.tag_list.each do |tag|
-            - tag_links << link_to(tag,tag_path(tag))
-          = tag_links.join(', ').html_safe
+- cache [@discussion,params[:page]] do
+  = content_for :meta do
+    %meta{property: 'og:site_name', content: SITE_TITLE}/
+    %meta{property: 'og:type', content: 'website'}/
+    -unless @discussion.attachments.empty?
+      - if @discussion.attachments.first.is_image?
+        %meta{property: 'og:image', content: asset_url(@discussion.attachments.first.path)}/
+    %meta{property: 'og:url', content: discussion_url(@discussion.id, page: params[:page].to_i)}/
+    %meta{property: 'og:title', content: @page_title}/
+    %meta{property: 'og:description', content: format_post(@discussion.format, @discussion.body, [], 350)}/
+    %meta{property: 'og:article:section', content: @discussion.category.name}/
+    %meta{property: 'article:published_time', content: @discussion.created.to_fs(:c)}/
+  %h1
+    = @page_title
+  - unless (!params[:page].blank? && params[:page].to_i > 1)
+    - cache @discussion do
+      .discussion_post
+        = render partial: 'users/author', locals: { user: @discussion.creator }
+        .post_metadata
+          .date_posted
+            = date_disp(@discussion.created)
+          - if @discussion.updated
+            .date_edited
+              edited #{date_disp(@discussion.updated)}
+          .category
+            in #{link_to @discussion.category.name, category_path(@discussion.category.id)}
+        .post_body
+          = format_post @discussion.format, @discussion.body, @discussion.attachments
+        - unless @discussion.tag_list.empty?
+          .post_tags
+            Tagged:
+            - tag_links = []
+            -  @discussion.tag_list.each do |tag|
+              - tag_links << link_to(tag,tag_path(tag))
+            = tag_links.join(', ').html_safe
 
-- unless @discussion.comments.blank?
-  .clear.vertical_spacer
-  %h2 Comments
-  - comments = @discussion.comments.paginate(per_page: PER_PAGE_MAX, page: params[:page].to_i)
-  .pagination_container
-    .page_info
-      = page_entries_info comments, entry_name: 'comment'
-    = will_paginate comments
-  %ol.discussion_comments
-    - comments.each do |comment|
-      - cache comment do
-        %li.discussion_comment
-          - if comment == @discussion.comments.last
-            %a{name: 'latest'}
-          %a{name: comment.id}
-          = render partial: 'users/author', locals: { user: comment.creator }
-          .post_metadata
-            .date_posted
-              = date_disp(comment.created)
-            - if comment.updated
-              .date_edited
-                edited #{date_disp(comment.updated)}
-          .post_body
-            = format_post comment.format, comment.body, comment.attachments
-  .pagination_container
-    .page_info
-      = page_entries_info comments, entry_name: 'comment'
-    = will_paginate comments
+  - unless @discussion.comments.blank?
+    .clear.vertical_spacer
+    %h2 Comments
+    - comments = @discussion.comments.paginate(per_page: PER_PAGE_MAX, page: params[:page].to_i)
+    .pagination_container
+      .page_info
+        = page_entries_info comments, entry_name: 'comment'
+      = will_paginate comments
+    %ol.discussion_comments
+      - comments.each do |comment|
+        - cache comment do
+          %li.discussion_comment
+            - if comment == @discussion.comments.last
+              %a{name: 'latest'}
+            %a{name: comment.id}
+            = render partial: 'users/author', locals: { user: comment.creator }
+            .post_metadata
+              .date_posted
+                = date_disp(comment.created)
+              - if comment.updated
+                .date_edited
+                  edited #{date_disp(comment.updated)}
+            .post_body
+              = format_post comment.format, comment.body, comment.attachments
+    .pagination_container
+      .page_info
+        = page_entries_info comments, entry_name: 'comment'
+      = will_paginate comments
 
-  .clear.vertical_spacer
+    .clear.vertical_spacer
 
-  - if (@discussion.num_comment_pages > 1) && (params[:page].blank? || (params[:page].to_i < @discussion.num_comment_pages))
-    = javascript_tag nonce: true do
-      :plain
-        $(document).ready(function() {
-          const anchor = window.location.hash;
-          if (anchor == '#latest') {
-            console.log('Redirecting to last page/comment...');
-            window.location.href = '#{discussion_path(@discussion.id, page: @discussion.num_comment_pages, anchor: @discussion.last_comment_id)}';
-          }
-        });
+    - if (@discussion.num_comment_pages > 1) && (params[:page].blank? || (params[:page].to_i < @discussion.num_comment_pages))
+      = javascript_tag nonce: true do
+        :plain
+          $(document).ready(function() {
+            const anchor = window.location.hash;
+            if (anchor == '#latest') {
+              console.log('Redirecting to last page/comment...');
+              window.location.href = '#{discussion_path(@discussion.id, page: @discussion.num_comment_pages, anchor: @discussion.last_comment_id)}';
+            }
+          });

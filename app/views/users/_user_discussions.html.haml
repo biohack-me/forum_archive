@@ -1,5 +1,7 @@
-%ol.discussions
-  - @user.discussions.sorted.each do |discussion|
-    - cache discussion do
-      %li
-        = render partial: 'discussions/preview', locals: { discussion: discussion, show_author: false, show_cat: true }
+- @user_d ||= @user
+- cache @user_d do
+  %ol.discussions
+    - @user_d.discussions.sorted.each do |discussion|
+      - cache discussion do
+        %li
+          = render partial: 'discussions/preview', locals: { discussion: discussion, show_author: false, show_cat: true }
