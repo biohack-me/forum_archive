@@ -1,0 +1,4 @@
+# Allow paths
+paths = [
+  '''db/seeds.rb''', # the 'passwords' in this file are all fake - random hashes generated just to populate a development database.
+]
