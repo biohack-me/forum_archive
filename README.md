@@ -116,6 +116,8 @@ bin/dev
 ```
 The development site should now be available at http://localhost:3000.
 
+This repo is set up with [betterleaks](https://github.com/betterleaks/betterleaks) as a pre-commit check, so before committing any changes you will need to install that locally.
+
 
 ## Deploying
 
