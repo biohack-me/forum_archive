@@ -108,7 +108,7 @@ GEM
       capistrano (~> 3.0)
       sshkit (~> 1.2)
     coderay (1.1.3)
-    concurrent-ruby (1.3.7)
+    concurrent-ruby (1.3.8)
     connection_pool (3.0.2)
     crass (1.0.7)
     dartsass-rails (0.5.1)
@@ -116,7 +116,7 @@ GEM
       sass-embedded (~> 1.63)
     date (3.5.1)
     drb (2.2.3)
-    erb (6.0.4)
+    erb (6.0.6)
     erubi (1.13.1)
     exception_notification (5.0.1)
       actionmailer (>= 7.1, < 9)
@@ -170,7 +170,7 @@ GEM
     minitest (5.27.0)
     mysql2 (0.5.7)
       bigdecimal
-    net-imap (0.6.4.1)
+    net-imap (0.6.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -235,8 +235,8 @@ GEM
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.7.0)
-      loofah (~> 2.25)
+    rails-html-sanitizer (1.7.1)
+      loofah (~> 2.25, >= 2.25.2)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
     rails_autolink (1.1.8)
       actionview (> 3.1)
@@ -264,9 +264,9 @@ GEM
     redcarpet (3.6.1)
     reline (0.6.3)
       io-console (~> 0.5)
-    sass-embedded (1.101.0-arm64-darwin)
+    sass-embedded (1.101.7-arm64-darwin)
       google-protobuf (~> 4.31)
-    sass-embedded (1.101.0-x86_64-linux-gnu)
+    sass-embedded (1.101.7-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     securerandom (0.4.1)
     shoulda-context (3.0.0.rc1)
@@ -280,7 +280,7 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
-    sshkit (1.25.0)
+    sshkit (1.25.1)
       base64
       logger
       net-scp (>= 1.1.2)
