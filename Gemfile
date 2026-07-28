@@ -16,6 +16,9 @@ gem 'actionpack-action_caching'
 gem 'will_paginate'
 gem 'rack-attack'
 
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', require: false
+
 group :test do
 
   gem 'minitest', '<6.0',        require: false # apparently you currently have to either use minitest <6 or a specific branch of rails for tests to actually run - see https://github.com/rails/rails/issues/56406 and https://github.com/minitest/minitest/issues/1040
